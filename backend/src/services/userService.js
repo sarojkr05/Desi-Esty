@@ -14,7 +14,8 @@ export const registerUser = async ({ name, email, password, role }) => {
     name,
     email,
     password: hashedPassword,
-    role,
+    role: role || "user", // default role is 'user'
+    isApproved: role === "artisan" ? false : true, // artisans need admin approval
   });
 
   return {
@@ -24,7 +25,6 @@ export const registerUser = async ({ name, email, password, role }) => {
     role: user.role,
   };
 };
-
 
 export const loginUser = async ({ email, password }) => {
   const user = await findUserByEmail(email);

@@ -3,7 +3,7 @@ import connectDB from "./src/config/db_config.js";
 import serverConfig from "./src/config/serverConfig.js";
 import userRouter from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
-
+import adminRouter from "./src/routes/adminRoutes.js";
 const app = express();
 
 app.use(express.json());
@@ -14,6 +14,7 @@ app.get("/ping", (req, res) => {
 })
 
 app.use("/auth", userRouter)
+app.use("/admin", adminRouter);
 
 app.listen(serverConfig.PORT, () => {
     connectDB();
