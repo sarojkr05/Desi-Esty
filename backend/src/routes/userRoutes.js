@@ -8,6 +8,6 @@ userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 userRouter.post("/logout", logout);
 
-// 🔒 Protected route
+// Protected route
 userRouter.get("/me", protect, getCurrentUser);
 export default userRouter;
