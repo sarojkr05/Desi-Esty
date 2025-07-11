@@ -5,17 +5,15 @@ import DeniedPage from "./pages/DeniedPage";
 import ArtisanDashboard from "./pages/ArtisanDashboard";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
+import ProductFilter from "./components/ProductFilter";
 function App() {
   return (
     <>
       <Routes>
         <Route path="/" element={<HomePage />} />
-       
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
-
         <Route path="/dashboard/artisan" element={<ArtisanDashboard />} />
-
         <Route path="/denied" element={<DeniedPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -24,4 +22,4 @@ function App() {
 }
 
 export default App;
-export default App;
+
