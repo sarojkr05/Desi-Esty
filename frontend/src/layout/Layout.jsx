@@ -4,7 +4,6 @@ import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
 import { useState } from "react";
 import LoginModal from "../components/LoginModal";
-
 const Navbar = ({ children }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
