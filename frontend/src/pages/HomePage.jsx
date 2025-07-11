@@ -4,8 +4,8 @@ import { ShoppingCart, Search, Star } from "lucide-react";
 import Layout from "../layout/Layout";
 import { Typewriter } from 'react-simple-typewriter';
 import ClayPotImg from "../assets/images/Clay Pot.jpg";
-import WoolImg from "../assets/images/Wool Imag.jpg"
-import JewelryImg from "../assets/images/Jewlery.jpg"
+import WoolImg from "../assets/images/Wool Imag.jpg";
+import JewelryImg from "../assets/images/Jewlery.jpg";
 import WoodenSpoonImg from "../assets/images/Wooden Spoons.jpg";
 
 const productData = [

@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
 import { ShoppingBag } from "lucide-react";
 import Footer from "../components/Footer";
+import RegisterModal from "../components/RegisterModal";
+import { useState } from "react";
+import LoginModal from "../components/LoginModal";
 
 const Navbar = ({ children }) => {
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -24,15 +29,40 @@ const Navbar = ({ children }) => {
             <Link to="/products" className="hover:text-amber-600 transition">
               Products
             </Link>
-            <Link to="/login" className="hover:text-amber-600 transition">
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="hover:text-amber-600 transition"
+            >
               Login
-            </Link>
-            <Link to="/register" className="hover:text-amber-600 transition">
+            </button>
+            <button
+              onClick={() => setShowRegisterModal(true)}
+              className="hover:text-amber-600 transition"
+            >
               Register
-            </Link>
+            </button>
           </div>
         </div>
       </nav>
+
+      {/* Modal Component */}
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSwitchToLogin={() => {
+          setShowRegisterModal(false);
+          setShowLoginModal(true);
+        }}
+      />
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToRegister={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+        }}
+      />
+
       <main className="min-h-screen bg-gradient-to-br from-white to-amber-50 text-gray-800">
         {children}
       </main>
