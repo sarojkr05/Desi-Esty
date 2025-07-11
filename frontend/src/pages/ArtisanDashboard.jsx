@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { PlusCircle, ShoppingBag, CheckCircle, XCircle } from "lucide-react";
 import Layout from "../layout/Layout";

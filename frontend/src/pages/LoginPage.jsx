@@ -11,7 +11,7 @@ const LoginPage = () => {
   return (
     <div className="flex items-center justify-center min-h-screen  bg-[#FAF3E0] ">
       <div className="w-[90%] sm:w-[60%] md:w-[40%] lg:w-[30%] flex flex-col items-center justify-center p-10 bg-[#FAF3E0]/80 shadow-xl rounded-xl backdrop-blur-lg">
-        <h2 className="text-2xl pb-4 font-bold text-amber-600">Login</h2>
+        <h2 className="text-2xl pb-4 font-bold text-amber-400">Login</h2>
         <p className="text-sm text-gray-600 italic mb-4 text-center">
           Your gateway to all things desi &amp; delightful.
         </p>
