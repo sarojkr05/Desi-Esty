@@ -3,7 +3,6 @@ import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import DeniedPage from "./pages/DeniedPage";
 import ArtisanDashboard from "./pages/ArtisanDashboard";
-
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 function App() {
@@ -24,4 +23,5 @@ function App() {
   );
 }
 
+export default App;
 export default App;

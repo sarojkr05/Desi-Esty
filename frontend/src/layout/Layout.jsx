@@ -8,6 +8,7 @@ import LoginModal from "../components/LoginModal";
 const Navbar = ({ children }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -33,7 +34,17 @@ const Navbar = ({ children }) => {
               onClick={() => setShowLoginModal(true)}
               className="hover:text-amber-600 transition"
             >
+             </button>
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="hover:text-amber-600 transition"
+            >
               Login
+            </button>
+            <button
+              onClick={() => setShowRegisterModal(true)}
+              className="hover:text-amber-600 transition"
+            >
             </button>
             <button
               onClick={() => setShowRegisterModal(true)}
@@ -47,6 +58,25 @@ const Navbar = ({ children }) => {
           </div>
         </div>
       </nav>
+
+      {/* Modal Component */}
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSwitchToLogin={() => {
+          setShowRegisterModal(false);
+          setShowLoginModal(true);
+        }}
+      />
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToRegister={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+        }}
+      />
+
 
       {/* Modal Component */}
       <RegisterModal
