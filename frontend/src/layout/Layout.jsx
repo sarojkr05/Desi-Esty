@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag , ShoppingCart  } from "lucide-react";
 import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
 import { useState } from "react";
@@ -41,6 +41,9 @@ const Navbar = ({ children }) => {
             >
               Register
             </button>
+            <Link to="/products" className="hover:text-amber-600 transition">
+              < ShoppingCart  className="hover:text-amber-600" size={22} />
+            </Link>
           </div>
         </div>
       </nav>

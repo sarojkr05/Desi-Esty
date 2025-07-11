@@ -1,10 +1,9 @@
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ data }) => {
-
-  const handleBuy =()=>{
-    console.log("Buy item" ,data.id, data.name)
-  }
+  const handleBuy = () => {
+    console.log("Buy item", data.id, data.name);
+  };
   return (
     <div className="h-[290px] w-64 p-2 rounded-lg shadow-lg hover:scale-105 transition-transform duration-200 hover:shadow-xl">
       <img
@@ -17,17 +16,16 @@ const ProductCard = ({ data }) => {
         <p className="font-light text-gray-500 text-sm ">{data.desc}</p>
         <p className="font-bold text-lg mr-3"> ₹ {data.price}</p>
       </div>
-       <div className="flex justify-center items-center">
+      <div className="flex justify-center ">
         <Link to={`/product/${data.id}`}>
-        <button 
-         onClick={handleBuy}
-        className="py-1 px-4 flex-1 bg-amber-700/100 text-white font-semibold  rounded-lg hover:cursor-pointer ">
-        Buy Now
-      </button>
-      </Link>
-       </div>
-      
-     
+          <button
+            onClick={handleBuy}
+            className="min-w-[220px] py-1 px-4 flex-1 bg-amber-700/100 text-white font-semibold  rounded-lg hover:cursor-pointer "
+          >
+            Buy Now
+          </button>
+        </Link>
+      </div>
     </div>
   );
 };

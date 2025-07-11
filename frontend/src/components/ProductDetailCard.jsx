@@ -44,7 +44,7 @@ const ProductDetailCard = () => {
       <div className="flex items-center gap-3 text-gray-700">
         <span className="font-semibold">Quantity:</span>
         <button 
-        onClick={()=>{setQuantity(quantity-1)}}
+        onClick={()=>{setQuantity( quantity >1 ? quantity-1 : 1)}}
         className="px-3 py-1 border border-amber-500 rounded-md text-lg font-bold text-amber-600 hover:bg-amber-100 transition cursor-pointer">
           -
         </button>
