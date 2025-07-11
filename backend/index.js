@@ -4,6 +4,12 @@ import serverConfig from "./src/config/serverConfig.js";
 import userRouter from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./src/routes/adminRoutes.js";
+import dotenv from "dotenv";
+dotenv.config();
+
+
+import productRouter from "./src/routes/productRoutes.js";
+
 const app = express();
 
 app.use(express.json());
@@ -15,9 +21,11 @@ app.get("/ping", (req, res) => {
 
 app.use("/auth", userRouter)
 app.use("/admin", adminRouter);
+app.use("/products", productRouter);
 
-app.listen(serverConfig.PORT, () => {
+app.listen(process.env.PORT, () => {
     connectDB();
+
     console.log(`Server got started on port ${serverConfig.PORT}...`)
 })
 
