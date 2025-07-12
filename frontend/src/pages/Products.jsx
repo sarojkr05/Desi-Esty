@@ -34,23 +34,23 @@ const Products = () => {
   return (
     <Layout>
       <div className="flex min-h-screen bg-gradient-to-br from-amber-50 to-white">
-        {/* Main Content */}
+        
         <div
           className={`transition-all duration-300 px-4 py-10 ${
             showFilter ? "w-[80%]" : "w-full"
           }`}
         >
-          {/* Search + Filter Button */}
+        
           <div className="flex justify-center items-center gap-4 flex-wrap mb-6">
-            <div className="flex shadow-sm">
+            <div className="flex shadow-sm rounded-lg">
               <input
                 type="text"
                 name="search"
                 placeholder="Try searching jewelry, pottery..."
                 className="w-72 p-2 border text-amber-700 font-medium border-amber-300 outline-none rounded-l-lg bg-white placeholder:text-sm"
               />
-              <button className="p-2 bg-amber-100 rounded-r-lg border border-l-0 border-amber-300">
-                <Search className="text-amber-500" size={22} />
+              <button className="p-2 bg-amber-100 rounded-r-lg border border-l-0 border-amber-300 hover:cursor-pointer hover:bg-amber-300">
+                <Search className="text-amber-500 " size={22} />
               </button>
             </div>
 
@@ -62,7 +62,7 @@ const Products = () => {
             </button>
           </div>
 
-          {/* Categories */}
+        
           <div className="bg-amber-100/60 mt-6 p-6 rounded-xl shadow-md">
             <h2 className="text-center text-2xl font-bold text-amber-700 mb-6">
               Explore By Categories
@@ -79,7 +79,7 @@ const Products = () => {
             </div>
           </div>
 
-          {/* Product Cards */}
+       
           <div className="flex flex-wrap justify-center gap-8 mt-10">
             {filteredProducts.length > 0 ? (
               filteredProducts.map((item) => <ProductCard key={item.id} data={item} />)
@@ -89,10 +89,9 @@ const Products = () => {
           </div>
         </div>
 
-        {/* Filter Sidebar */}
         {showFilter && (
           <div className="w-[20%] bg-white shadow-xl">
-            <ProductFilter onApplyFilters={handleApplyFilters} />
+            <ProductFilter onApplyFilters={handleApplyFilters} onClose={()=>{setShowfilter(false)}} />
           </div>
         )}
       </div>

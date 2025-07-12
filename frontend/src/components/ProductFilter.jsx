@@ -1,8 +1,8 @@
 import { motion } from "framer-motion";
 import { categories } from "../utils/constant";
 import { useEffect, useState } from "react";
-
-const ProductFilter = ({ onApplyFilters }) => {
+import { X } from "lucide-react";
+const ProductFilter = ({ onApplyFilters, onClose }) => {
   const [price, setPrice] = useState(1000);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState("All");
@@ -25,10 +25,13 @@ const ProductFilter = ({ onApplyFilters }) => {
       animate={{ x: 0 }}
       exit={{ x: "100%" }}
       transition={{ duration: 0.4 }}
-      className="bg-amber-100/40 shadow-xl h-full w-[80%] md:w-[20%] fixed right-0 top-0 z-50 p-4 overflow-y-auto"
+      className="bg-amber-200/40 shadow-xl h-full w-[80%] md:w-[20%] fixed right-0 top-0 z-50 p-4 overflow-y-auto"
     >
-      <h2 className="text-xl font-semibold mb-4 text-amber-700">Filters</h2>
-
+      {" "}
+      <div className="flex justify-between items-center text-xl font-semibold mb-4 text-amber-700">
+        <h2 className="">Filters</h2>
+        <X className="" onClick={onClose} />
+      </div>
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Category</h4>
         {categories.map((cat) => (
@@ -45,7 +48,6 @@ const ProductFilter = ({ onApplyFilters }) => {
           </li>
         ))}
       </div>
-
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Price Range</h4>
         <input
@@ -61,7 +63,6 @@ const ProductFilter = ({ onApplyFilters }) => {
           <span className="font-medium text-amber-600">₹0 – ₹{price}</span>
         </div>
       </div>
-
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Ratings</h4>
         <select
@@ -74,7 +75,6 @@ const ProductFilter = ({ onApplyFilters }) => {
           <option>3 ★ & above</option>
         </select>
       </div>
-
       <button
         onClick={handleApplyFilters}
         className="w-full mt-4 bg-amber-600 text-white py-2 rounded font-semibold hover:bg-amber-700 transition"
