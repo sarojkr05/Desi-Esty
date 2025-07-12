@@ -9,7 +9,7 @@ const ProductDetailsPage = () => {
         <div className="bg-[#FAF3E0] min-h-screen py-10">
           <div className="fixed top-30 left-10 flex text-amber-500 font-bold gap-3">
             <Link to="/products">
-              <CircleChevronLeft className="text-amber-500 " size={24} />
+              <CircleChevronLeft className="text-amber-500" size={24} />
             </Link>
           </div>
           <ProductDetailCard />
