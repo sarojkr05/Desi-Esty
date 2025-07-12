@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag } from "lucide-react";
+import { ShoppingBag , ShoppingCart  } from "lucide-react";
 import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
 import { useState } from "react";
 import LoginModal from "../components/LoginModal";
+
 const Navbar = ({ children }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -32,7 +34,17 @@ const Navbar = ({ children }) => {
               onClick={() => setShowLoginModal(true)}
               className="hover:text-amber-600 transition"
             >
+             </button>
+            <button
+              onClick={() => setShowLoginModal(true)}
+              className="hover:text-amber-600 transition"
+            >
               Login
+            </button>
+            <button
+              onClick={() => setShowRegisterModal(true)}
+              className="hover:text-amber-600 transition"
+            >
             </button>
             <button
               onClick={() => setShowRegisterModal(true)}
@@ -40,9 +52,31 @@ const Navbar = ({ children }) => {
             >
               Register
             </button>
+            <Link to="/products" className="hover:text-amber-600 transition">
+              < ShoppingCart  className="hover:text-amber-600" size={22} />
+            </Link>
           </div>
         </div>
       </nav>
+
+      {/* Modal Component */}
+      <RegisterModal
+        isOpen={showRegisterModal}
+        onClose={() => setShowRegisterModal(false)}
+        onSwitchToLogin={() => {
+          setShowRegisterModal(false);
+          setShowLoginModal(true);
+        }}
+      />
+      <LoginModal
+        isOpen={showLoginModal}
+        onClose={() => setShowLoginModal(false)}
+        onSwitchToRegister={() => {
+          setShowLoginModal(false);
+          setShowRegisterModal(true);
+        }}
+      />
+
 
       {/* Modal Component */}
       <RegisterModal
