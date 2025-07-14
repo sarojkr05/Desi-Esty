@@ -4,7 +4,7 @@ const ProductCard = ({ data }) => {
 
 
   return (
-    <div className="h-[310px] w-64 p-3 bg-white rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition-transform duration-300 border border-amber-100">
+    <div className="h-[350px] w-64 p-3 bg-white rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition-transform duration-300 border border-amber-100">
       <img
         src={data.img}
         alt={data.name}
