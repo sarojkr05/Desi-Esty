@@ -72,13 +72,32 @@
 ]
  ;
  export const categories = [
-  "Clothing",
-  "Jewelry",
-  "Home Decor",
-  "Pottery",
-  "Paintings",
-  "Bags",
-  "Madhubani Art",
-  "Woodwork",
-  "Wall Hangings",
+  {
+    name: "Home Decor",
+    subcategories: ["Wall Hangings", "Table Decor", "Cushions", "Terracotta Vases"]
+  },
+  {
+    name: "Pottery",
+    subcategories: ["Clay Pots", "Mugs", "Plates", "Terracotta Vases"]
+  },
+  {
+    name: "Paintings",
+    subcategories: ["Madhubani", "Pattachitra", "Kalamkari", "Warli"]
+  },
+  {
+    name: "Bags",
+    subcategories: ["Tote Bags", "Sling Bags", "Handmade Clutches", "Jute Bags"]
+  },
+  {
+    name: "Madhubani Art",
+    subcategories: ["Wall Art", "Coasters", "Diaries", "Plates"]
+  },
+  {
+    name: "Woodwork",
+    subcategories: ["Wall Clocks", "Shelves", "Showpieces", "Trays"]
+  },
+  {
+    name: "Wall Hangings",
+    subcategories: ["Macrame", "Woven", "Embroidery", "Metal Art"]
+  }
 ];

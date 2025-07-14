@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { categories } from "../utils/constant";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { X } from "lucide-react";
 const ProductFilter = ({ onApplyFilters, onClose }) => {
   const [price, setPrice] = useState(1000);
@@ -35,7 +35,7 @@ const ProductFilter = ({ onApplyFilters, onClose }) => {
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Category</h4>
         {categories.map((cat) => (
-          <li key={cat} className="list-none mb-1">
+          <li key={cat.name} className="list-none mb-1">
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
@@ -43,7 +43,7 @@ const ProductFilter = ({ onApplyFilters, onClose }) => {
                 checked={selectedCategories.includes(cat)}
                 onChange={() => handleCategoryChange(cat)}
               />
-              <span>{cat}</span>
+              <span>{cat.name}</span>
             </label>
           </li>
         ))}
