@@ -1,14 +1,18 @@
 import { Link } from "react-router-dom";
-import { ShoppingBag , ShoppingCart  } from "lucide-react";
+import { ShoppingBag, ShoppingCart } from "lucide-react";
 import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
 import { useState } from "react";
 import LoginModal from "../components/LoginModal";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../redux/authSlice";
 
 const Navbar = ({ children }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
-  
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -30,30 +34,32 @@ const Navbar = ({ children }) => {
             <Link to="/products" className="hover:text-amber-600 transition">
               Products
             </Link>
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="hover:text-amber-600 transition"
-            >
-             </button>
-            <button
-              onClick={() => setShowLoginModal(true)}
-              className="hover:text-amber-600 transition"
-            >
-              Login
-            </button>
-            <button
-              onClick={() => setShowRegisterModal(true)}
-              className="hover:text-amber-600 transition"
-            >
-            </button>
-            <button
-              onClick={() => setShowRegisterModal(true)}
-              className="hover:text-amber-600 transition"
-            >
-              Register
-            </button>
-            <Link to="/products" className="hover:text-amber-600 transition">
-              < ShoppingCart  className="hover:text-amber-600" size={22} />
+            {isLoggedIn ? (
+              <button
+                onClick={() => dispatch(logout())}
+                className="hover:text-amber-600 transition"
+              >
+                Logout
+              </button>
+            ) : (
+              <>
+                <button
+                  onClick={() => setShowLoginModal(true)}
+                  className="hover:text-amber-600 transition"
+                >
+                  Login
+                </button>
+                <button
+                  onClick={() => setShowRegisterModal(true)}
+                  className="hover:text-amber-600 transition"
+                >
+                  Register
+                </button>
+              </>
+            )}
+
+            <Link to="/cart" className="hover:text-amber-600 transition">
+              <ShoppingCart className="hover:text-amber-600" size={22} />
             </Link>
           </div>
         </div>
@@ -76,7 +82,6 @@ const Navbar = ({ children }) => {
           setShowRegisterModal(true);
         }}
       />
-
 
       {/* Modal Component */}
       <RegisterModal

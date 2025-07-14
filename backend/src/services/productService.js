@@ -24,7 +24,7 @@ export const editProduct = async (id, artisanId, updatedData) => {
 };
 
 export const removeProduct = async (id, artisanId) => {
-    const product = await findProductById(id);
+    const product = await deleteProduct(id);
     if (!product || product.artisan.toString() !== artisanId) {
         throw new Error("Not authorized or product not found");
     }

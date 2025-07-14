@@ -1,18 +1,55 @@
 import { useState } from "react";
 import { Mail, Eye, EyeOff, Lock, User, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../redux/authSlice";
 
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState("user");
   const handleLogin = () => onSwitchToLogin();
+  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleFormSubmit = async (e) => {
+    e.preventDefault();
+    const finalData = { ...formData, role };
+
+    try {
+      const response = await dispatch(registerUser(finalData));
+      console.log("res from back while disp", response);
+
+      if (response.type === "/auth/register/fulfilled") {
+        onClose();
+        onSwitchToLogin(); // Open login modal
+      }
+    } catch (error) {
+      console.log("Registration failed", error);
+    }
+  };
 
   if (!isOpen) return null;
 
   // Framer motion variants
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
   };
 
@@ -74,6 +111,9 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
           <User className="text-amber-500 mr-2" size={18} />
           <input
             type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
             placeholder="Your Name"
             className="w-full outline-none bg-transparent text-gray-700"
           />
@@ -86,7 +126,10 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
           <Mail className="text-amber-500 mr-2" size={18} />
           <input
             type="email"
-            placeholder="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter you E-mail here"
             className="w-full outline-none bg-transparent text-gray-700"
           />
         </motion.div>
@@ -97,9 +140,12 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         >
           <Lock className="text-amber-500 mr-2" size={18} />
           <input
+            name="password"
             className="flex-1 outline-none bg-transparent text-gray-700"
             type={showPassword ? "text" : "password"}
             placeholder="Password"
+            value={formData.password}
+            onChange={handleChange}
           />
           {showPassword ? (
             <EyeOff
@@ -131,6 +177,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
         </motion.div>
 
         <motion.button
+          onClick={handleFormSubmit}
           className="w-full mt-2 py-2 bg-amber-500 text-white rounded-full font-semibold hover:bg-amber-600 transition shadow-md"
           variants={fadeUp}
         >

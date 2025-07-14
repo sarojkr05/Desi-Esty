@@ -1,10 +1,27 @@
 import { useState } from "react";
 import { Mail, Eye, EyeOff, Lock, X } from "lucide-react";
 import { motion } from "framer-motion";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../redux/authSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleRegister = () => onSwitchToRegister();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
   if (!isOpen) return null;
 
@@ -29,6 +46,21 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
+
+  const handleFormSubmit = async (e) => {
+      e.preventDefault();  
+      try {
+        const response = await dispatch(loginUser(formData));
+        console.log("res from back while disp..", response);
+  
+        if (response.type === "/auth/signin/fulfilled") {
+          onClose();
+          navigate('/')
+        }
+      } catch (error) {
+        console.log("Login failed", error);
+      }
+    };
 
   return (
     <motion.div
@@ -74,7 +106,10 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
           <Mail className="text-amber-500" size={18} />
           <input
             type="email"
-            placeholder="Email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your E-mail here"
             className="w-full outline-none bg-transparent text-gray-700"
           />
         </motion.div>
@@ -87,8 +122,11 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
           <Lock className="text-amber-500" size={18} />
           <input
             type={showPassword ? "text" : "password"}
+            name="password"
             placeholder="Password"
             className="w-full outline-none bg-transparent text-gray-700"
+            value={formData.password}
+            onChange={handleChange}
           />
           {showPassword ? (
             <EyeOff
@@ -107,6 +145,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
 
         {/* Submit Button */}
         <motion.button
+          onClick={handleFormSubmit}
           className="w-full mt-2 py-2 bg-amber-500 text-white font-semibold rounded-full hover:bg-amber-600 transition shadow-md"
           variants={fadeUp}
         >
