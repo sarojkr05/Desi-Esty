@@ -5,6 +5,7 @@ import DeniedPage from "./pages/DeniedPage"
 import ArtisanDashboard from "./pages/ArtisanDashboard"
 import Products from "./pages/Products"
 import ProductDetailsPage from "./pages/ProductDetailsPage"
+import AdminDashboard from "./pages/AdminDashboard"
 function App() {
   return (
     <>
@@ -13,6 +14,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/product/:id" element={<ProductDetailsPage />} />
         <Route path="/dashboard/artisan" element={<ArtisanDashboard />} />
+        <Route path="/dashboard/admin" element={<AdminDashboard />} />
      
         <Route path="/denied" element={<DeniedPage />} />
         <Route path="*" element={<NotFoundPage />} />
@@ -22,4 +24,3 @@ function App() {
 }
 
 export default App;
-
