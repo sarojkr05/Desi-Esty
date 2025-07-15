@@ -54,8 +54,16 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
         console.log("res from back while disp..", response);
   
         if (response.type === "/auth/signin/fulfilled") {
-          onClose();
-          navigate('/')
+          const role = response.payload.user.role;
+          if(role === "artisan") {
+            navigate('/dashboard/artisan')
+          } 
+          else if(role === "admin") {
+            navigate("/dashboard/admin")
+          } else {
+            onClose();
+            navigate('/')
+          }
         }
       } catch (error) {
         console.log("Login failed", error);

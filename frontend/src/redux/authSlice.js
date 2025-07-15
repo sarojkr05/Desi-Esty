@@ -15,10 +15,10 @@ export const registerUser = createAsyncThunk(
       const responsePromise = axiosInstance.post("/auth/signup", userData);
 
       await toast.promise(responsePromise, {
-        loading: "Hold back tight, we're loggin you in...",
-        success: (res) => res?.data?.message || "Login successful!",
+        loading: "Hold back tight, we're registering you...",
+        success: (res) => res?.data?.message || "Registration successful!",
         error:
-          "Oh, no! Something went wrong during Signing in. Please try again!",
+          "Oh, no! Something went wrong during registering. Please try again!",
       });
 
       const response = await responsePromise;
@@ -37,10 +37,10 @@ export const loginUser = createAsyncThunk("/auth/signin", async (userData) => {
     console.log("responsePromise", responsePromise);
 
     await toast.promise(responsePromise, {
-      loading: "Hold back tight, we're registering you...",
-      success: (res) => res?.data?.message || "Registration successful!",
+      loading: "Hold back tight, we're logging you in...",
+      success: (res) => res?.data?.message || "Login successful!",
       error:
-        "Oh, no! Something went wrong during registration. Please try again!",
+        "Oh, no! Something went wrong during login. Please try again!",
     });
 
     const response = await responsePromise;
