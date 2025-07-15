@@ -37,8 +37,6 @@ const productData = [
 
 const HomePage = () => {
   return (
-    <>
-      <Layout>
         <div className="min-h-screen bg-gradient-to-br from-white to-amber-50 text-gray-800">
           {/* Hero Section */}
           <section className="w-full px-6 py-20 md:px-20 text-center">
@@ -135,8 +133,6 @@ const HomePage = () => {
             </Link>
           </section>
         </div>
-      </Layout>
-    </>
   );
 };
 

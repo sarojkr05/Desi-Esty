@@ -17,7 +17,7 @@ const ArtisanDashboard = () => {
 
   return (
     <>
-      <Layout>
+     
         <div className="min-h-screen px-6 py-10 bg-gradient-to-br from-white to-amber-50 text-gray-800">
           <div className="max-w-5xl mx-auto">
             {/* Welcome Card */}
@@ -27,7 +27,7 @@ const ArtisanDashboard = () => {
               </h1>
               <p className="text-gray-600">
                 {artisan.isApproved
-                  ? "You're approved to publish handmade products."
+                  ? "You're a part of Desy-Esty! you can publish handmade products."
                   : "Your artisan profile is pending admin approval."}
               </p>
               {!artisan.isApproved && (
@@ -72,7 +72,7 @@ const ArtisanDashboard = () => {
             </div>
           </div>
         </div>
-      </Layout>
+     
     </>
   );
 };
