@@ -13,8 +13,6 @@ const ArtisanDashboard = () => {
   };
 
   return (
-    <>
-    <Layout>
     <div className="min-h-screen px-6 py-10 bg-gradient-to-br from-white to-amber-50 text-gray-800">
       <div className="max-w-5xl mx-auto">
         {/* Welcome Card */}
@@ -63,8 +61,6 @@ const ArtisanDashboard = () => {
         </div>
       </div>
     </div>
-    </Layout>
-    </>
   );
 };
 

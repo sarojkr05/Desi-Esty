@@ -42,7 +42,6 @@ const Products = () => {
   const filteredProducts = filterProducts();
 
   return (
-    <Layout>
       <div className="flex min-h-screen bg-gradient-to-br from-amber-50 to-white">
         <div
           className={`transition-all duration-300 px-4 py-10 ${
@@ -128,7 +127,6 @@ const Products = () => {
           </div>
         )}
       </div>
-    </Layout>
   );
 };
 

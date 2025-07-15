@@ -1,17 +1,30 @@
-import { Link } from "react-router-dom";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
-import { useState } from "react";
 import LoginModal from "../components/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
+import {
+  openLoginModal,
+  openRegisterModal,
+  closeLoginModal,
+  closeRegisterModal,
+} from "../redux/modalSlice";
+import { useEffect } from "react";
 
-const Navbar = ({ children }) => {
-  const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [showLoginModal, setShowLoginModal] = useState(false);
+const Layout = () => {
   const dispatch = useDispatch();
+  const location = useLocation()
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
+  const registerModalOpen = useSelector((state) => state.modal.registerModalOpen);
+
+  useEffect(() => {
+    if (location.state?.forceLogin) {
+      dispatch(openLoginModal());
+    }
+  }, [location.state, dispatch]);
 
   return (
     <>
@@ -34,6 +47,7 @@ const Navbar = ({ children }) => {
             <Link to="/products" className="hover:text-amber-600 transition">
               Products
             </Link>
+
             {isLoggedIn ? (
               <button
                 onClick={() => dispatch(logout())}
@@ -44,13 +58,13 @@ const Navbar = ({ children }) => {
             ) : (
               <>
                 <button
-                  onClick={() => setShowLoginModal(true)}
+                  onClick={() => dispatch(openLoginModal())}
                   className="hover:text-amber-600 transition"
                 >
                   Login
                 </button>
                 <button
-                  onClick={() => setShowRegisterModal(true)}
+                  onClick={() => dispatch(openRegisterModal())}
                   className="hover:text-amber-600 transition"
                 >
                   Register
@@ -59,54 +73,36 @@ const Navbar = ({ children }) => {
             )}
 
             <Link to="/cart" className="hover:text-amber-600 transition">
-              <ShoppingCart className="hover:text-amber-600" size={22} />
+              <ShoppingCart size={22} />
             </Link>
           </div>
         </div>
       </nav>
 
-      {/* Modal Component */}
-      <RegisterModal
-        isOpen={showRegisterModal}
-        onClose={() => setShowRegisterModal(false)}
-        onSwitchToLogin={() => {
-          setShowRegisterModal(false);
-          setShowLoginModal(true);
-        }}
-      />
+      {/* Modals */}
       <LoginModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
+        isOpen={loginModalOpen}
+        onClose={() => dispatch(closeLoginModal())}
         onSwitchToRegister={() => {
-          setShowLoginModal(false);
-          setShowRegisterModal(true);
+          dispatch(closeLoginModal());
+          dispatch(openRegisterModal());
         }}
       />
-
-      {/* Modal Component */}
       <RegisterModal
-        isOpen={showRegisterModal}
-        onClose={() => setShowRegisterModal(false)}
+        isOpen={registerModalOpen}
+        onClose={() => dispatch(closeRegisterModal())}
         onSwitchToLogin={() => {
-          setShowRegisterModal(false);
-          setShowLoginModal(true);
-        }}
-      />
-      <LoginModal
-        isOpen={showLoginModal}
-        onClose={() => setShowLoginModal(false)}
-        onSwitchToRegister={() => {
-          setShowLoginModal(false);
-          setShowRegisterModal(true);
+          dispatch(closeRegisterModal());
+          dispatch(openLoginModal());
         }}
       />
 
       <main className="min-h-screen bg-gradient-to-br from-white to-amber-50 text-gray-800">
-        {children}
+        <Outlet />
       </main>
       <Footer />
     </>
   );
 };
 
-export default Navbar;
+export default Layout;
