@@ -3,8 +3,9 @@ import ProductCard from "../components/ProductCard";
 import Layout from "../layout/Layout";
 import { products as allProducts, categories } from "../utils/constant";
 import ProductFilter from "../components/ProductFilter";
-import { useState } from "react";
+import { useState} from "react";
 import { motion, AnimatePresence } from "framer-motion";
+
 const Products = () => {
   const [showFilter, setShowfilter] = useState(false);
   const [filters, setFilters] = useState({
@@ -13,8 +14,9 @@ const Products = () => {
     rating: "All",
   });
   const [activeCategoryIndex, setActiveCategoryIndex] = useState(null);
-
-  const toggleFilter = () => setShowfilter(!showFilter);
+ 
+  
+   const toggleFilter = () => setShowfilter(!showFilter);
 
   const handleApplyFilters = (newFilters) => {
     setFilters(newFilters);

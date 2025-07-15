@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ShoppingBag, ShoppingCart } from "lucide-react";
 import Footer from "../components/Footer";
 import RegisterModal from "../components/RegisterModal";
@@ -11,8 +11,19 @@ const Navbar = ({ children }) => {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const dispatch = useDispatch();
+  const navigate= useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
+  
+  const handleLogout =async()=>{
+    try{
+      await dispatch(logout());
+      navigate('/');
+      
+    }
+    catch(error){
+      console.log(error)
+    }
+  }
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -36,7 +47,7 @@ const Navbar = ({ children }) => {
             </Link>
             {isLoggedIn ? (
               <button
-                onClick={() => dispatch(logout())}
+                onClick={handleLogout}
                 className="hover:text-amber-600 transition"
               >
                 Logout
