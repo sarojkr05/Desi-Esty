@@ -17,16 +17,26 @@ export const getArtisanProducts = async (artisanId) => {
 
 export const editProduct = async (id, artisanId, updatedData) => {
     const product = await findProductById(id);
-    if (!product || product.artisan.toString() !== artisanId) {
+
+
+
+
+    if (!product || product.artisan.toString() !== artisanId.toString()) {
         throw new Error("Not authorized or product not found");
     }
+
     return await updateProduct(id, updatedData);
 };
 
+
+
 export const removeProduct = async (id, artisanId) => {
-    const product = await deleteProduct(id);
-    if (!product || product.artisan.toString() !== artisanId) {
+    const product = await findProductById(id);
+
+
+    if (!product || product.artisan.toString() !== artisanId.toString()) {
         throw new Error("Not authorized or product not found");
     }
+
     return await deleteProduct(id);
 };
