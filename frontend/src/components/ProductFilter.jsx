@@ -1,22 +1,24 @@
 import { motion } from "framer-motion";
 import { categories } from "../utils/constant";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { X } from "lucide-react";
-const ProductFilter = ({ onApplyFilters, onClose }) => {
+const ProductFilter = ({ onApplyFilters, onClose,setIsFilterApplied }) => {
   const [price, setPrice] = useState(1000);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState("All");
 
-  const handleCategoryChange = (category) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((cat) => cat !== category)
-        : [...prev, category]
-    );
-  };
+ const handleCategoryChange = (categoryName) => {
+  setSelectedCategories((prev) =>
+    prev.includes(categoryName)
+      ? prev.filter((cat) => cat !== categoryName)
+      : [...prev, categoryName]
+  );
+};
+
 
   const handleApplyFilters = () => {
     onApplyFilters({ categories: selectedCategories, price, rating });
+     setIsFilterApplied(true);
   };
 
   return (
@@ -35,15 +37,15 @@ const ProductFilter = ({ onApplyFilters, onClose }) => {
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Category</h4>
         {categories.map((cat) => (
-          <li key={cat} className="list-none mb-1">
+          <li key={cat.name} className="list-none mb-1">
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
                 className="accent-amber-600"
-                checked={selectedCategories.includes(cat)}
-                onChange={() => handleCategoryChange(cat)}
+                checked={selectedCategories.includes(cat.name)}
+                onChange={() => handleCategoryChange(cat.name)}
               />
-              <span>{cat}</span>
+              <span>{cat.name}</span>
             </label>
           </li>
         ))}

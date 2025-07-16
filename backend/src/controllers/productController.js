@@ -1,3 +1,4 @@
+import Product from "../models/productSchema.js";
 import {
     addNewProduct,
     getArtisanProducts,
@@ -40,4 +41,14 @@ export const deleteMyProduct = async (req, res) => {
     } catch (err) {
         res.status(403).json({ message: err.message });
     }
+};
+
+// user side product api
+export const getApprovedProducts = async (req, res) => {
+  try {
+    const products = await Product.find({ isApproved: true });
+    res.status(200).json(products);
+  } catch (error) {
+    res.status(500).json({ message: "Failed to fetch approved products" });
+  }
 };
