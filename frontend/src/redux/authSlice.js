@@ -58,7 +58,7 @@ export const logout = createAsyncThunk("/auth/logout", async () => {
     await toast.promise(responsePromise, {
       loading: "Hold back tight, we're logging you out...",
       success: (res) => res?.data?.message || "Logout successful!",
-      error: "Oh, no! Something went wrong during logout. Please try again!",
+      error: " Something went wrong during logout. Please try again!",
     });
 
     const response = await responsePromise;

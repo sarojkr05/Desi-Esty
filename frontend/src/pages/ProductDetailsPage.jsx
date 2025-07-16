@@ -1,4 +1,4 @@
-import ProductDetailCard from "../components/ProductDetailsCard";
+import ProductDetailCard from "../components/ProductDetailCard";
 import { CircleChevronLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import Layout from "../layout/Layout";
