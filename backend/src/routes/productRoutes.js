@@ -9,6 +9,7 @@ import {
 import { protect } from "../middlewares/authMiddlewares.js";
 
 const productRouter = express.Router();
+
 productRouter.use(protect);
 
 

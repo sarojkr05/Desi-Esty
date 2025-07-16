@@ -1,6 +1,5 @@
 import { Search, Filter } from "lucide-react";
 import ProductCard from "../components/ProductCard";
-import Layout from "../layout/Layout";
 import { products as allProducts, categories } from "../utils/constant";
 import ProductFilter from "../components/ProductFilter";
 import { useState } from "react";

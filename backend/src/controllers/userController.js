@@ -2,13 +2,13 @@ import { loginUser, registerUser } from "../services/userService.js";
 
 export const signup = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, mobileNumber, role } = req.body;
 
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !mobileNumber) {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const user = await registerUser({ name, email, password, role });
+    const user = await registerUser({ name, email, password, mobileNumber, role });
 
     return res.status(201).json({
       message: "User registered successfully",
