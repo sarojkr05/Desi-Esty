@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Star } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams ,useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchApprovedProducts } from "../redux/productSlice";
 
@@ -8,7 +8,7 @@ const ProductDetailCard = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
-
+  const navigate =useNavigate();
   const { approvedProducts, loading, error } = useSelector(
     (state) => state.products
   );
@@ -47,7 +47,9 @@ const ProductDetailCard = () => {
   }
 
   const { _id, title, description, price, image, category } = product;
-
+  const handleAddToCart =()=>{
+    navigate('/my-cart')
+  }
   return (
     <div className="w-[95%] md:w-4/5 lg:w-2/3 xl:w-1/2 mx-auto my-12 bg-white shadow-xl rounded-2xl p-8 space-y-6">
       
@@ -91,7 +93,9 @@ const ProductDetailCard = () => {
 
       
       <div className="flex flex-col md:flex-row gap-4 mt-6">
-        <button className="flex-1 py-3 bg-amber-500 text-white rounded-full font-semibold hover:bg-amber-600 transition">
+        <button 
+         onClick={handleAddToCart}
+         className="flex-1 py-3 bg-amber-500 text-white rounded-full font-semibold hover:bg-amber-600 transition">
           Add to Cart
         </button>
         <button className="flex-1 py-3 bg-white border border-amber-600 text-amber-600 rounded-full font-semibold hover:bg-amber-100 transition">

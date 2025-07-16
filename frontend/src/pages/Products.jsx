@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const Products = () => {
   const [showFilter, setShowfilter] = useState(false);
+  const [isFilterApplied, setIsFilterApplied] = useState(false);
   const [filters, setFilters] = useState({
     categories: [],
     price: 10000,
@@ -19,7 +20,7 @@ const Products = () => {
   const { approvedProducts, loading, error } = useSelector(
     (state) => state.products
   );
-  console.log(approvedProducts);
+  console.log(approvedProducts, "approved Products");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchApprovedProducts());
@@ -37,20 +38,22 @@ const Products = () => {
   };
 
   const filterProducts = () => {
-    return allProducts.filter((product) => {
-      const inCategory =
-        filters.categories.length === 0 ||
-        filters.categories.includes(product.category);
-      const inPriceRange = product.price <= filters.price;
-      const inRating =
-        filters.rating === "All" ||
-        (filters.rating === "4 ★ & above" && product.rating >= 4) ||
-        (filters.rating === "3 ★ & above" && product.rating >= 3);
-      return inCategory && inPriceRange && inRating;
-    });
-  };
+  return approvedProducts.filter((product) => {
+    const inCategory =
+      filters.categories.length === 0 ||
+      filters.categories.includes(product.category);  // ✅ correct
+    const inPriceRange = product.price <= filters.price;  // ✅ correct
+    const inRating =
+      filters.rating === "All" ||
+      (filters.rating === "4 ★ & above" && product.rating >= 4) ||
+      (filters.rating === "3 ★ & above" && product.rating >= 3);
 
-  const filteredProducts = filterProducts();
+    return inCategory && inPriceRange && inRating;
+  });
+};
+
+  const productsToRender = isFilterApplied? filterProducts() : approvedProducts;
+  
   if (loading) return <p className="text-center">Loading products...</p>;
   if (error) return <p className="text-center text-red-500">{error}</p>;
 
@@ -122,14 +125,12 @@ const Products = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-8 mt-10">
-          {approvedProducts ? (
-            approvedProducts.map((item) => (
-              <ProductCard key={item._id} product={item} />
+          {productsToRender && productsToRender.length > 0 ? (
+            productsToRender.map((product) => (
+              <ProductCard key={product._id} product={product} />
             ))
           ) : (
-            <p className="text-center text-amber-600 font-semibold">
-              No products match the selected filters.
-            </p>
+            <p>No products available</p>
           )}
         </div>
       </div>
@@ -138,6 +139,7 @@ const Products = () => {
         <div className="w-[20%] bg-white shadow-xl">
           <ProductFilter
             onApplyFilters={handleApplyFilters}
+            setIsFilterApplied={setIsFilterApplied}
             onClose={() => {
               setShowfilter(false);
             }}

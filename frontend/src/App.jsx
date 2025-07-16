@@ -10,6 +10,8 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import RequiredAuth from "./components/RequiredAuth";
 
+import CartPage from "./pages/CartPage";
+
 function App() {
   return (
     <Routes>
@@ -33,6 +35,8 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
         </Route>
+
+        <Route path="/my-cart" element={<CartPage/>}></Route>
 
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
