@@ -1,10 +1,9 @@
 import { Search, Filter } from "lucide-react";
 import ProductCard from "../components/ProductCard";
-import Layout from "../layout/Layout";
-import { products as allProducts, categories } from "../utils/constant";
+import {  categories } from "../utils/constant";
 import ProductFilter from "../components/ProductFilter";
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import {  AnimatePresence } from "framer-motion";
 import { fetchApprovedProducts } from "../redux/productSlice";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -41,8 +40,8 @@ const Products = () => {
   return approvedProducts.filter((product) => {
     const inCategory =
       filters.categories.length === 0 ||
-      filters.categories.includes(product.category);  // ✅ correct
-    const inPriceRange = product.price <= filters.price;  // ✅ correct
+      filters.categories.includes(product.category);  
+    const inPriceRange = product.price <= filters.price;  
     const inRating =
       filters.rating === "All" ||
       (filters.rating === "4 ★ & above" && product.rating >= 4) ||

@@ -10,7 +10,7 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import RequiredAuth from "./components/RequiredAuth";
 
-import CartPage from "./pages/CartPage";
+import AddProducts from "./components/artisan/AddProducts";
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Route element={<RequiredAuth allowedRoles={["artisan"]} />}>
           <Route path="/dashboard/artisan" element={<ArtisanDashboard />} />
         </Route>
+        <Route path="/add-product" element={<AddProducts/>}></Route>
 
         {/* Admin Dashboard */}
         <Route element={<RequiredAuth allowedRoles={["admin"]} />}>
@@ -36,8 +37,8 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailsPage />} />
         </Route>
 
-        <Route path="/my-cart" element={<CartPage/>}></Route>
-
+       
+   
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>

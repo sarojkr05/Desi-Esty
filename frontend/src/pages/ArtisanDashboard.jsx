@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import { PlusCircle, ShoppingBag, CheckCircle, XCircle } from "lucide-react";
 import Layout from "../layout/Layout";
 import { useSelector } from "react-redux";
 
 const ArtisanDashboard = () => {
   const user = useSelector((state) => state.auth.userData);
+  const navigate = useNavigate()
   // This data will later come from backend (via Redux or API call)
   const artisan = {
     //name: "Saroj Kumar",
@@ -14,6 +15,9 @@ const ArtisanDashboard = () => {
     isApproved: true,
   };
   const { name } = user || {};
+  const handleAddProduct = ()=>{
+    navigate("/add-product")
+  }
 
   return (
     <>
@@ -64,7 +68,9 @@ const ArtisanDashboard = () => {
             {/* Actions */}
             <div className="text-center">
               <Link to="/add-product">
-                <button className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-white font-semibold rounded-full shadow hover:bg-amber-600 transition">
+                <button 
+                onClick={handleAddProduct}
+                className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-white font-semibold rounded-full shadow hover:bg-amber-600 transition">
                   <PlusCircle className="w-5 h-5" />
                   Add New Product
                 </button>
