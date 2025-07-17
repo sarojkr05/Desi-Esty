@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Eye, EyeOff, Lock, X } from "lucide-react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
+import { closeLoginModal } from "../redux/modalSlice";
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,6 +15,13 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isOpen) {
+      setFormData({ email: "", password: "" });
+      setShowPassword(false); // optional: reset password visibility too
+    }
+  }, [isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +36,11 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   // Animations
   const containerVariants = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.3, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.3, ease: "easeOut" },
+    },
     exit: { opacity: 0, scale: 0.9, transition: { duration: 0.2 } },
   };
 
@@ -48,27 +60,33 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   };
 
   const handleFormSubmit = async (e) => {
-      e.preventDefault();  
-      try {
-        const response = await dispatch(loginUser(formData));
-        console.log("res from back while disp..", response);
-  
-        if (response.type === "/auth/signin/fulfilled") {
-          const role = response.payload.user.role;
-          if(role === "artisan") {
-            navigate('/dashboard/artisan')
-          } 
-          else if(role === "admin") {
-            navigate("/dashboard/admin")
-          } else {
-            onClose();
-            navigate('/')
-          }
+    e.preventDefault();
+    try {
+      const response = await dispatch(loginUser(formData));
+      console.log("res from back while disp..", response);
+
+      if (response.type === "/auth/signin/fulfilled") {
+        const role = response.payload.user.role;
+
+        //Close the modal on successful login
+
+        dispatch(closeLoginModal());
+
+        //Navigate accordingly
+
+        if (role === "artisan") {
+          navigate("/dashboard/artisan");
+        } else if (role === "admin") {
+          navigate("/dashboard/admin");
+        } else {
+          onClose();
+          navigate("/");
         }
-      } catch (error) {
-        console.log("Login failed", error);
       }
-    };
+    } catch (error) {
+      console.log("Login failed", error);
+    }
+  };
 
   return (
     <motion.div

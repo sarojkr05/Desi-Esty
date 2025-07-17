@@ -11,6 +11,7 @@ import { authorizeRoles } from "../middlewares/authorizedRoles.js";
 
 
 const productRouter = express.Router();
+
 productRouter.use(protect);
 
 productRouter.use(authorizeRoles("artisan")); // Only artisan can access these routes

@@ -19,11 +19,12 @@ app.use(express.json());
 app.use(cookieParser());
 
 // handle cors origin here
-
 app.use(cors({
-    origin: process.env.FRONTEND_URL,
-    credentials: true // Allow credentials to be sent with requests
+  origin: process.env.FRONTEND_URL || "http://localhost:5173",
+  credentials: true
 }));
+
+
 
 app.get("/ping", (req, res) => {
     res.send("Pong")
@@ -44,3 +45,5 @@ app.listen(process.env.PORT, () => {
 //db password MuKcXwbUHaDoVN1L
 //db username sarojkr05
 // Created a new repository on GitHub
+//pkd22cs059
+//NvVh7VmDJQK7r4uu

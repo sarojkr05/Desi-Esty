@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, Eye, EyeOff, Lock, User, X } from "lucide-react";
+import { Mail, Eye, EyeOff, Lock, User, X, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/authSlice";
@@ -13,6 +13,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     name: "",
     email: "",
     password: "",
+    mobileNumber: ""
   });
 
   const handleChange = (e) => {
@@ -130,6 +131,21 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
             value={formData.email}
             onChange={handleChange}
             placeholder="Enter you E-mail here"
+            className="w-full outline-none bg-transparent text-gray-700"
+          />
+        </motion.div>
+
+        <motion.div
+          className="w-full flex items-center border border-amber-200 rounded-lg bg-white px-3 py-2 my-2"
+          variants={fadeUp}
+        >
+          <Phone className="text-amber-500 mr-2" size={18} />
+          <input
+            type="mobileNumber"
+            name="mobileNumber"
+            value={formData.mobileNumber}
+            onChange={handleChange}
+            placeholder="Enter you 10 digits mobile Number"
             className="w-full outline-none bg-transparent text-gray-700"
           />
         </motion.div>
