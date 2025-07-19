@@ -11,6 +11,9 @@ import AdminDashboard from "./pages/AdminDashboard";
 import RequiredAuth from "./components/RequiredAuth";
 
 import AddProducts from "./components/artisan/AddProducts";
+import UserProfile from "./pages/UserProfile";
+import ViewProducts from "./components/artisan/ViewProducts";
+import EditProducts from "./components/artisan/EditProducts";
 
 function App() {
   return (
@@ -19,12 +22,15 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/denied" element={<DeniedPage />} />
+        <Route path="/user-profile" element={<UserProfile/>}></Route>
 
         {/* Artisan Dashboard */}
         <Route element={<RequiredAuth allowedRoles={["artisan"]} />}>
           <Route path="/dashboard/artisan" element={<ArtisanDashboard />} />
         </Route>
         <Route path="/add-product" element={<AddProducts/>}></Route>
+        <Route path="/view-products" element={<ViewProducts/>}></Route>
+        <Route path="/edit-product/:id" element={<EditProducts/>}></Route>
 
         {/* Admin Dashboard */}
         <Route element={<RequiredAuth allowedRoles={["admin"]} />}>

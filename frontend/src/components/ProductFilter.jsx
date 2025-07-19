@@ -1,22 +1,26 @@
 import { motion } from "framer-motion";
-import { categories } from "../utils/constant";
-import {  useState } from "react";
+import {categories } from "../utils/constants";
+import { useState} from "react";
 import { X } from "lucide-react";
+
+
 const ProductFilter = ({ onApplyFilters, onClose,setIsFilterApplied }) => {
   const [price, setPrice] = useState(1000);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [rating, setRating] = useState("All");
 
+ 
  const handleCategoryChange = (categoryName) => {
   setSelectedCategories((prev) =>
     prev.includes(categoryName)
       ? prev.filter((cat) => cat !== categoryName)
       : [...prev, categoryName]
   );
+
 };
 
 
-  const handleApplyFilters = () => {
+const handleApplyFilters = () => {
     onApplyFilters({ categories: selectedCategories, price, rating });
      setIsFilterApplied(true);
   };
@@ -30,22 +34,22 @@ const ProductFilter = ({ onApplyFilters, onClose,setIsFilterApplied }) => {
       className="bg-amber-200/40 shadow-xl h-full w-[80%] md:w-[20%] fixed right-0 top-0 z-50 p-4 overflow-y-auto"
     >
       {" "}
-      <div className="flex justify-between items-center text-xl font-semibold mb-4 text-amber-700">
-        <h2 className="">Filters</h2>
-        <X className="" onClick={onClose} />
+      <div className="flex  bg-amber-600  w-full justify-between items-center text-xl font-semibold mb-4  text-white">
+        <h2 className="p-2">Filters</h2>
+        <X className="p-1" onClick={onClose} />
       </div>
       <div className="border-b text-amber-600 p-2">
         <h4 className="font-medium mb-2">Category</h4>
         {categories.map((cat) => (
-          <li key={cat.name} className="list-none mb-1">
+          <li key={cat} className="list-none mb-1">
             <label className="flex items-center gap-2">
               <input
                 type="checkbox"
                 className="accent-amber-600"
-                checked={selectedCategories.includes(cat.name)}
-                onChange={() => handleCategoryChange(cat.name)}
+                checked={selectedCategories.includes(cat)}
+                onChange={() => handleCategoryChange(cat)}
               />
-              <span>{cat.name}</span>
+              <span className="text-amber-500">{cat}</span>
             </label>
           </li>
         ))}

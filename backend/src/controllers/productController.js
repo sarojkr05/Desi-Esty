@@ -8,6 +8,8 @@ import {
 
 export const createProduct = async (req, res) => {
     try {
+       console.log("Req Body:", req.body);
+        console.log("User ID:", req.user?._id);
         const artisanId = req.user._id;
         const product = await addNewProduct(artisanId, req.body);
         res.status(201).json(product);
@@ -51,4 +53,5 @@ export const getApprovedProducts = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch approved products" });
   }
+
 };

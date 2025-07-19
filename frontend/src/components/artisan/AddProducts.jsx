@@ -1,72 +1,149 @@
-const AddProducts = () => {
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { createProduct, updateProduct } from "../../redux/productSlice";
+import { ArrowLeft } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+
+const AddProduct = ({ mode = "add", existingProduct = null }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    title: "",
+    description: "",
+    price: "",
+    image: "",
+    category: "",
+    quantity: "",
+    inStock: false,
+  });
+
+  useEffect(() => {
+    if (mode === "edit" && existingProduct) {
+      setFormData(existingProduct);
+    }
+  }, [mode, existingProduct]);
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setFormData({
+      ...formData,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (mode === "edit") {
+      dispatch(updateProduct({ id: existingProduct._id, updatedData: formData }));
+    } else {
+      dispatch(createProduct(formData));
+    }
+    navigate("/view-products");
+  };
+
   return (
-    <div className="min-h-screen flex justify-center items-start bg-white px-4 py-10">
-      <div className="w-full max-w-xl bg-white p-4 space-y-6">
-        <h1 className="text-2xl font-bold text-amber-700 text-center">Add New Product</h1>
-
-        <div>
-          <label className="block text-sm text-amber-700 mb-1">Title</label>
-          <input type="text" placeholder="Product title" className="w-full border p-2 rounded focus:outline-none focus:border-amber-500" />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-sm text-amber-700 mb-1 ">Category</label>
-            <select className="w-full border p-2 rounded focus:outline-none  focus:border-amber-500">
-              <option>Category 1</option>
-              <option>Category 2</option>
-            </select>
-          </div>
-          <div>
-            <label className="block text-sm text-amber-700 mb-1">Subcategory</label>
-            <select className="w-full border p-2 rounded focus:outline-none focus:border-amber-500">
-              <option>Subcategory 1</option>
-              <option>Subcategory 2</option>
-            </select>
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-amber-700 mb-1">Product Image(s)</label>
-          <input type="file" className="w-full border p-2 rounded focus:outline-none focus:border-amber-500" />
-        </div>
-
-        <div>
-          <label className="block text-sm text-amber-700 mb-1">Detailed Description</label>
-          <textarea rows="4" className="w-full border p-2 focus:outline-none focus:border-amber-500 rounded" placeholder="Write here..." />
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div>
-            <label className="block text-sm text-amber-700 mb-1">Price</label>
-            <input type="number" className="w-full border-2  focus:outline-none focus:border-amber-500 p-2 rounded" />
-          </div>
-          <div>
-            <label className="block text-sm text-amber-700 mb-1">Discount %</label>
-            <input type="number" className="w-full border focus:outline-none focus:border-amber-500 p-2 rounded" />
-          </div>
-          <div>
-            <label className="block text-sm text-amber-700 mb-1">Qauntity</label>
-            <input type="number" className="w-full focus:outline-none focus:border-amber-500 border p-2 rounded" />
-          </div>
-        </div>
-
-        <div>
-          <label className="block text-sm text-amber-700 mb-1">Availability</label>
-          <select className="w-full focus:outline-none focus:border-amber-500 border p-2 rounded">
-            <option>In Stock</option>
-            <option>Out of Stock</option>
-          </select>
-        </div>
-
-        <div className="text-center">
-          <button className="bg-amber-500 text-white px-5 py-2 rounded font-semibold hover:bg-amber-600">
-            Submit
-          </button>
-        </div>
+    <>
+      <div className="text-amber-500 my-5 p-2">
+        <Link to="/dashboard/artisan" className="flex gap-4">
+          <ArrowLeft size={24} />
+          Back to Dashboard
+        </Link>
       </div>
-    </div>
+
+      <div className="max-w-xl mx-auto mt-10 p-6 bg-white shadow-lg rounded-2xl">
+        <h2 className="text-2xl font-semibold mb-4">
+          {mode === "edit" ? "Edit Product" : "Add New Product"}
+        </h2>
+
+        <form className="space-y-4" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            name="title"
+            placeholder="Product Title"
+            value={formData.title}
+            onChange={handleChange}
+            disabled={mode === "edit"}
+            className={`w-full border p-2 rounded ${
+              mode === "edit" ? "bg-gray-100 cursor-not-allowed" : ""
+            }`}
+            required
+          />
+
+          <input
+            type="text"
+            name="category"
+            placeholder="Category"
+            value={formData.category}
+            onChange={handleChange}
+            disabled={mode === "edit"}
+            className={`w-full border p-2 rounded ${
+              mode === "edit" ? "bg-gray-100 cursor-not-allowed" : ""
+            }`}
+            required
+          />
+
+          <textarea
+            name="description"
+            placeholder="Description"
+            className="w-full border p-2 rounded"
+            rows="3"
+            value={formData.description}
+            onChange={handleChange}
+          />
+
+          <input
+            type="number"
+            name="price"
+            placeholder="Price"
+            value={formData.price}
+            onChange={handleChange}
+            disabled={mode === "edit"}
+            className="w-full border p-2 rounded "
+         
+            required
+          />
+
+          <input
+            type="number"
+            name="quantity"
+            placeholder="Quantity"
+            className="w-full border p-2 rounded"
+            value={formData.quantity}
+            onChange={handleChange}
+            required
+          />
+
+          <input
+            type="text"
+            name="image"
+            placeholder="Image URL"
+            className="w-full border p-2 rounded"
+            value={formData.image}
+            onChange={handleChange}
+          />
+
+          <label className="flex items-center gap-2 font-semibold">
+            <input
+              type="checkbox"
+              name="inStock"
+              checked={formData.inStock}
+              onChange={handleChange}
+              className="accent-amber-400"
+            />
+            In Stock
+          </label>
+
+          <button
+            type="submit"
+            className="bg-amber-400 text-white font-semibold px-4 py-2 rounded hover:bg-amber-600"
+          >
+            {mode === "edit" ? "Update Product" : "Add Product"}
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 
-export default AddProducts;
+export default AddProduct;

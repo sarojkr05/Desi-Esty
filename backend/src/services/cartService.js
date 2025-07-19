@@ -1,5 +1,5 @@
 import Cart from "../models/cartSchema.js";
-import Product from "../models/productSchema.js";
+
 
 export const getCartByUserId = async (userId) => {
     let cart = await Cart.findOne({ user: userId }).populate("items.product");

@@ -44,6 +44,9 @@ const Layout = () => {
   const handleUserOptions = () => {
     setUserOptions(!userOptions);
   };
+  const showUserProfile =()=>{
+    navigate('/user-profile');
+  }
   return (
     <>
       <nav className="bg-white shadow-md sticky top-0 z-50">
@@ -109,7 +112,8 @@ const Layout = () => {
                       </div>
 
                       <ul className="text-sm text-gray-700 divide-y divide-amber-100">
-                        <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
+                        <li onClick={showUserProfile}
+                        className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
                           Profile
                         </li>
                         <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">

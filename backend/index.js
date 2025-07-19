@@ -10,7 +10,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 dotenv.config();
 import productRouter from "./src/routes/productRoutes.js";
-import cartRouter from "./src/routes/cartRoutes.js";
+
 
 const app = express();
 
@@ -31,13 +31,11 @@ app.get("/ping", (req, res) => {
 
 app.use("/auth", userRouter)
 app.use("/admin", adminRouter);
-app.use("/products", productRouter);
-<<<<<<< HEAD
+app.use("/products", productRouter); 
 app.use("/cart",cartRouter);
-=======
-app.use("/cart", cartRouter);
 
->>>>>>> 6ca8d09764ff70d86a1cc8be3fa2caf2e96b7760
+
+
 
 app.listen(process.env.PORT, () => {
     connectDB();
