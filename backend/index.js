@@ -34,7 +34,7 @@ app.use("/auth", userRouter)
 app.use("/admin", adminRouter);
 app.use("/products", productRouter); 
 app.use("/product", getAllApprovedProducts); 
-app.use("/cart",cartRouter);
+app.use("/cart",  cartRouter);
 
 
 

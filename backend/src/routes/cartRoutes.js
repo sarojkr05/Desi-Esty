@@ -4,9 +4,11 @@ import {
   modifyProductTocart,
   clearCartbyId,
 } from "../controllers/cartController.js";
-// import { isLoggedIn } from "../validation/authValidator.js";
+import { protect } from "../middlewares/authMiddlewares.js";
 
 const cartRouter = express.Router();
+
+cartRouter.use(protect)
 
 cartRouter.get("/",  getCartByUser);
 cartRouter.post("/:operation/:productId",  modifyProductTocart);
