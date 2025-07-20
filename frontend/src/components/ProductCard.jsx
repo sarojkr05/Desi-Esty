@@ -1,7 +1,16 @@
-import { Link } from "react-router-dom";
+import { Link,useNavigate} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/CartSlice"; 
+
 
 const ProductCard = ({ product }) => {
 const { _id, title, description, price, image, category } = product;
+const dispatch = useDispatch(); 
+const navigate = useNavigate(); 
+const handleAddToCart = () => {
+  dispatch(addToCart(product)); 
+  navigate("/my-cart");         
+};
   return (
     <div className="h-[350px] w-64 p-3 bg-white rounded-xl shadow-md hover:shadow-2xl hover:scale-105 transition-transform duration-300 border border-amber-100">
       <img
@@ -20,6 +29,7 @@ const { _id, title, description, price, image, category } = product;
         >
           Buy Now
         </Link>
+        
       </div>
     </div>
   );

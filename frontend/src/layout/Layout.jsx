@@ -6,6 +6,10 @@ import RegisterModal from "../components/RegisterModal";
 import LoginModal from "../components/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
+import { Toaster } from "react-hot-toast";
+
+
+
 import {
   openLoginModal,
   openRegisterModal,
@@ -21,6 +25,9 @@ const Layout = () => {
   const [userOptions, setUserOptions] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
+  const cartItems = useSelector((state) => state.cart.items);
+  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
   const registerModalOpen = useSelector(
     (state) => state.modal.registerModalOpen
   );
@@ -46,6 +53,8 @@ const Layout = () => {
   };
   return (
     <>
+      <Toaster  reverseOrder={false} />
+
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
           <Link
@@ -126,9 +135,14 @@ const Layout = () => {
                   )}
                   
                 </div>
-                 <Link to="/my-cart" className="hover:text-amber-600 transition">
-                  <ShoppingCart size={22} />
-                </Link>
+                 <Link to="/my-cart" className="relative group">
+                 <ShoppingCart size={24} className="text-grey-700 hover:text-amber-600 transition duration-200"/>
+                  {totalQuantity > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                      {totalQuantity}
+                  </span>
+                  )}
+                 </Link>
               </>
             )}
           </div>

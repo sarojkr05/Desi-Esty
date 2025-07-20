@@ -12,8 +12,10 @@ import RequiredAuth from "./components/RequiredAuth";
 
 import CartPage from "./pages/CartPage";
 
+
 function App() {
   return (
+    
     <Routes>
       <Route element={<Layout />}>
         {/* Public Routes */}
@@ -36,7 +38,13 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailsPage />} />
         </Route>
 
-        <Route path="/my-cart" element={<CartPage/>}></Route>
+       {/* Shared Routes */}
+        <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
+          <Route path="/products" element={<Products />} />
+          <Route path="/product/:id" element={<ProductDetailsPage />} />
+          <Route path="/my-cart" element={<CartPage />} />
+        </Route>
+
 
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />

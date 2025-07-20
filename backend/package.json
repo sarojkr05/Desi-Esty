@@ -14,14 +14,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-<<<<<<< HEAD
-    "test": "echo \"Error: no test specified\" && exit 1",
-     "start": "node index.js",
-     "dev": "nodemon index.js"
-=======
-    "start": "npx nodemon src/index.js"
->>>>>>> 49ae94e440a655238bb68f7849c7dbf9760d7b49
-  },
+  "start": "node index.js",
+  "dev": "nodemon index.js"
+},
+
   "keywords": [],
   "author": "",
   "license": "ISC",

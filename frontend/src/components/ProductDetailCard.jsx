@@ -3,6 +3,8 @@ import { Star } from "lucide-react";
 import { Link, useParams ,useNavigate} from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchApprovedProducts } from "../redux/productSlice";
+import { addToCart } from "../redux/CartSlice";
+import toast from "react-hot-toast";
 
 const ProductDetailCard = () => {
   const { id } = useParams();
@@ -48,6 +50,8 @@ const ProductDetailCard = () => {
 
   const { _id, title, description, price, image, category } = product;
   const handleAddToCart =()=>{
+    dispatch(addToCart({ ...product, quantity }));
+    toast.success("Added to cart!");
     navigate('/my-cart')
   }
   return (
