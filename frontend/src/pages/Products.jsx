@@ -19,7 +19,6 @@ const Products = () => {
   const { approvedProducts, loading, error } = useSelector(
     (state) => state.products
   );
-  console.log(approvedProducts, "approved Products");
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(fetchApprovedProducts());

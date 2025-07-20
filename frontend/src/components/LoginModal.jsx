@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { loginUser } from "../redux/authSlice";
 import { useNavigate } from "react-router-dom";
 import { closeLoginModal } from "../redux/modalSlice";
+import toast from "react-hot-toast";
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -62,8 +63,28 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      if (!formData.email || !formData.password) {
+        toast.error("Both email and password are required!");
+        return;
+      }
+
+      //check email
+      if (!formData.email.includes("@") || !formData.email.includes(".")) {
+        toast.error("Please enter a valid email address!");
+        return;
+      }
+
+      const passwordRegex =
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+
+      if (!passwordRegex.test(formData.password)) {
+        toast.error(
+          "Password must be at least 8 characters and inludes uppercase, lowercase, number and special character!"
+        );
+        return;
+      }
+
       const response = await dispatch(loginUser(formData));
-      console.log("res from back while disp..", response);
 
       if (response.type === "/auth/signin/fulfilled") {
         const role = response.payload.user.role;

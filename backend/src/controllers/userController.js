@@ -38,7 +38,7 @@ export const login = async (req, res) => {
       })
       .status(200)
       .json({
-        message: "Login successful",
+        message: "You've been successfully logged in!",
         user,
         token
       });
@@ -56,7 +56,7 @@ export const logout = (req, res) => {
       secure: process.env.NODE_ENV === "production",
     })
     .status(200)
-    .json({ message: "Logout successful" });
+    .json({ message: "You've been successfully logged out!" });
 };
 
 export const getCurrentUser = async (req, res) => {

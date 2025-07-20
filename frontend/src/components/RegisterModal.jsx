@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Mail, Eye, EyeOff, Lock, User, X, Phone } from "lucide-react";
 import { motion } from "framer-motion";
 import { useDispatch } from "react-redux";
 import { registerUser } from "../redux/authSlice";
+import toast from "react-hot-toast";
 
 const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -13,8 +14,15 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     name: "",
     email: "",
     password: "",
-    mobileNumber: ""
+    mobileNumber: "",
   });
+
+  useEffect(() => {
+      if (isOpen) {
+        setFormData({ name: "", email: "", password: "", mobileNumber: "" });
+        setShowPassword(false); // optional: reset password visibility too
+      }
+    }, [isOpen]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,8 +37,37 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
     const finalData = { ...formData, role };
 
     try {
+      if (
+        !formData.name ||
+        !formData.email ||
+        !formData.mobileNumber ||
+        !formData.password
+      ) {
+        toast.error("All fields are required!");
+        return;
+      }
+      //check email
+      if (!formData.email.includes("@") || !formData.email.includes(".")) {
+        toast.error("Please enter a valid email address!");
+        return;
+      }
+
+      if (
+        formData.mobileNumber.length < 10 ||
+        formData.mobileNumber.length > 10
+      ) {
+        toast.error("Mobile number must not be more than 10 digits long!");
+        return;
+      }
+
+      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
+
+      if(!passwordRegex.test(formData.password)) {
+        toast.error("Password must be at least 8 characters and inludes uppercase, lowercase, number and special character!")
+        return;
+      }
+
       const response = await dispatch(registerUser(finalData));
-      console.log("res from back while disp", response);
 
       if (response.type === "/auth/register/fulfilled") {
         onClose();
