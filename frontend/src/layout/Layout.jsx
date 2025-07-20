@@ -51,6 +51,9 @@ const Layout = () => {
   const handleUserOptions = () => {
     setUserOptions(!userOptions);
   };
+  const showUserProfile =()=>{
+    navigate('/user-profile');
+  }
   return (
     <>
       <Toaster  reverseOrder={false} />
@@ -118,7 +121,8 @@ const Layout = () => {
                       </div>
 
                       <ul className="text-sm text-gray-700 divide-y divide-amber-100">
-                        <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
+                        <li onClick={showUserProfile}
+                        className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
                           Profile
                         </li>
                         <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">

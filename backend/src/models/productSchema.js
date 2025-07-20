@@ -14,6 +14,8 @@ const productSchema = new mongoose.Schema(
     },
     description: {
       type: String,
+      required: true,
+      trim: true
     },
     price: {
       type: Number,
@@ -30,6 +32,17 @@ const productSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    quantity :{
+      type:Number,
+      required: true,
+      default:10,
+    },
+    inStock:{
+      type:Boolean,
+      required:true,
+    },
+
+
   },
   { timestamps: true }
 );

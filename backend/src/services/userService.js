@@ -17,6 +17,7 @@ export const registerUser = async ({ name, email, password, mobileNumber, role }
     mobileNumber: mobileNumber,
     role: role || "user", // default role is 'user'
     isApproved: role === "artisan" ? false : true, // artisans need admin approval
+    isProfileComplete:false
   });
 
   return {
@@ -24,6 +25,7 @@ export const registerUser = async ({ name, email, password, mobileNumber, role }
     name: user.name,
     email: user.email,
     role: user.role,
+    
   };
 };
 
@@ -46,6 +48,7 @@ export const loginUser = async ({ email, password }) => {
       name: user.name,
       email: user.email,
       role: user.role,
+       isProfileComplete: user.isProfileComplete
     },
     token,
   };

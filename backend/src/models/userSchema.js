@@ -33,9 +33,25 @@ const userSchema = new mongoose.Schema(
     address: {
       type: String
     },
+    city :{
+      type:String,
+      
+    },
+    state :{
+      type :String,
+    },
+    country :{
+      type:String,
+      default:"India"
+    },
+    isProfileComplete :{
+      type:Boolean,
+      default:false
+    },
+
     isApproved: {
       type: Boolean,
-      default: false, // for artisans, admin approval needed
+      default: false, 
     },
   },
   { timestamps: true }

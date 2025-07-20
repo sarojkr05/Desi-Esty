@@ -10,7 +10,10 @@ import ProductDetailsPage from "./pages/ProductDetailsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import RequiredAuth from "./components/RequiredAuth";
 
-import CartPage from "./pages/CartPage";
+import AddProducts from "./components/artisan/AddProducts";
+import UserProfile from "./pages/UserProfile";
+import ViewProducts from "./components/artisan/ViewProducts";
+import EditProducts from "./components/artisan/EditProducts";
 
 
 function App() {
@@ -21,11 +24,15 @@ function App() {
         {/* Public Routes */}
         <Route path="/" element={<HomePage />} />
         <Route path="/denied" element={<DeniedPage />} />
+        <Route path="/user-profile" element={<UserProfile/>}></Route>
 
         {/* Artisan Dashboard */}
         <Route element={<RequiredAuth allowedRoles={["artisan"]} />}>
           <Route path="/dashboard/artisan" element={<ArtisanDashboard />} />
         </Route>
+        <Route path="/add-product" element={<AddProducts/>}></Route>
+        <Route path="/view-products" element={<ViewProducts/>}></Route>
+        <Route path="/edit-product/:id" element={<EditProducts/>}></Route>
 
         {/* Admin Dashboard */}
         <Route element={<RequiredAuth allowedRoles={["admin"]} />}>
@@ -38,6 +45,7 @@ function App() {
           <Route path="/product/:id" element={<ProductDetailsPage />} />
         </Route>
 
+<<<<<<< HEAD
        {/* Shared Routes */}
         <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
           <Route path="/products" element={<Products />} />
@@ -46,6 +54,10 @@ function App() {
         </Route>
 
 
+=======
+       
+   
+>>>>>>> 6bb47a87d6cd45e61792c94991aa2a537a6e145d
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>

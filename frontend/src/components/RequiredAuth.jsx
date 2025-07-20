@@ -7,7 +7,7 @@ const RequiredAuth = ({ allowedRoles }) => {
   const role = useSelector((state) => state.auth.role);
   const location = useLocation();
 
-  // 1. Block immediately if not logged in
+  // Block immediately if not logged in
   if (!isLoggedIn) {
     return <Navigate to="/" state={{ from: location, forceLogin: true }} replace />;
   }

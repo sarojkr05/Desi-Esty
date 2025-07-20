@@ -4,12 +4,14 @@ import serverConfig from "./src/config/serverConfig.js";
 import userRouter from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./src/routes/adminRoutes.js";
+import cartRouter from "./src/routes/cartRoutes.js";
+import getAllApprovedProducts from "./src/routes/productRuoutesFromUser.js";
+import productRouter from "./src/routes/productRoutes.js";
+
+
 import dotenv from "dotenv";
 import cors from 'cors';
 dotenv.config();
-
-
-import productRouter from "./src/routes/productRoutes.js";
 
 const app = express();
 
@@ -31,7 +33,12 @@ app.get("/ping", (req, res) => {
 
 app.use("/auth", userRouter)
 app.use("/admin", adminRouter);
-app.use("/products", productRouter);
+app.use("/products", productRouter); 
+app.use("/product", getAllApprovedProducts); 
+app.use("/cart",  cartRouter);
+
+
+
 
 app.listen(process.env.PORT, () => {
     connectDB();
