@@ -4,12 +4,13 @@ import serverConfig from "./src/config/serverConfig.js";
 import userRouter from "./src/routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import adminRouter from "./src/routes/adminRoutes.js";
+import cartRouter from "./src/routes/cartRoutes.js";
+
 import dotenv from "dotenv";
 import cors from 'cors';
 dotenv.config();
-
-
 import productRouter from "./src/routes/productRoutes.js";
+
 
 const app = express();
 
@@ -30,7 +31,11 @@ app.get("/ping", (req, res) => {
 
 app.use("/auth", userRouter)
 app.use("/admin", adminRouter);
-app.use("/products", productRouter);
+app.use("/products", productRouter); 
+app.use("/cart",cartRouter);
+
+
+
 
 app.listen(process.env.PORT, () => {
     connectDB();
@@ -41,3 +46,5 @@ app.listen(process.env.PORT, () => {
 //db password MuKcXwbUHaDoVN1L
 //db username sarojkr05
 // Created a new repository on GitHub
+//pkd22cs059
+//NvVh7VmDJQK7r4uu

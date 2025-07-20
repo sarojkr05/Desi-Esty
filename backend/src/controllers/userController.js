@@ -1,4 +1,6 @@
 import { loginUser, registerUser } from "../services/userService.js";
+import User from "../models/userSchema.js";
+
 
 export const signup = async (req, res) => {
   try {
@@ -8,7 +10,13 @@ export const signup = async (req, res) => {
       return res.status(400).json({ message: "All fields are required" });
     }
 
-    const user = await registerUser({ name, email, password, mobileNumber, role });
+    const user = await registerUser({
+      name,
+      email,
+      password,
+      mobileNumber,
+      role,
+    });
 
     return res.status(201).json({
       message: "User registered successfully",
@@ -40,7 +48,7 @@ export const login = async (req, res) => {
       .json({
         message: "You've been successfully logged in!",
         user,
-        token
+        token,
       });
   } catch (error) {
     return res.status(401).json({ message: error.message });
@@ -60,17 +68,66 @@ export const logout = (req, res) => {
 };
 
 export const getCurrentUser = async (req, res) => {
-  // req.user is set by the protect middleware
-  if (!req.user) {
-    return res.status(404).json({ message: "User not found" });
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
   }
+};
 
-  const { _id, name, email, role } = req.user;
+export const getUserProfileDetails = async (req, res) => {
+  try {
+    const user = await User.findById(req.user._id).select("-password");
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
 
-  res.status(200).json({
-    id: _id,
-    name,
-    email,
-    role,
-  });
+    const {
+      _id,
+      name,
+      email,
+      mobileNumber,
+      address,
+      city,
+      state,
+      country,
+    } = user;
+
+    res.status(200).json({
+      id: _id,
+      name,
+      email,
+      mobileNumber,
+      address,
+      city,
+      state,
+      country,
+    });
+  } catch (err) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+export const updateUserProfile = async (req, res) => {
+  try {
+    const userId = req.user._id; // From protect middleware
+
+    const updatedUser = await User.findByIdAndUpdate(
+      userId,
+      {
+        ...req.body, // Only include allowed fields (for security, validate in real apps)
+      },
+      { new: true, runValidators: true }
+    ).select("-password");
+
+    res.status(200).json({
+      message: "Profile updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(500).json({ message: "Something went wrong" });
+  }
 };
