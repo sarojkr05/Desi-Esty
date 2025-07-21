@@ -34,32 +34,20 @@ export const clearCartbyId = async (req, res) => {
 };
 export const increaseCartQuantity = async (req, res) => {
     try {   
-        console.log("=== Increase Cart Quantity Debug ===");
-        console.log("req.user:", req.user);
-        console.log("req.params:", req.params);
-        
         const userId = req.user._id;
         const { productId } = req.params;
-        
-        console.log("Processed userId:", userId);
-        console.log("Processed productId:", productId);
       
         const cart = await Cart.findOne({ user: userId });
-        console.log("Cart found:", !!cart);
         
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
       
         const item = cart.items.find((i) => i.product.toString() === productId);
-        console.log("Item found:", !!item);
         
         if (!item) return res.status(404).json({ message: 'Item not found in cart' });
       
-        console.log("Current quantity:", item.quantity);
         item.quantity += 1;
-        console.log("New quantity:", item.quantity);
         
         await cart.save();
-        console.log("Cart saved successfully");
         
         res.json({ success: true, data: cart });
     } catch (error) {
@@ -70,22 +58,16 @@ export const increaseCartQuantity = async (req, res) => {
 
 
 export const decreaseCartQuantity = async (req, res) => {
-    console.log('=== decreaseCartQuantity HIT ===', req.params);
     try {
         const userId = req.user._id;
         const { productId } = req.params;
-      
-        console.log("User ID:", userId);
-        console.log("Product ID:", productId);
       
         const cart = await Cart.findOne({ user: userId });
         if (!cart) return res.status(404).json({ message: 'Cart not found' });
       
         const item = cart.items.find((i) => i.product.toString() === productId);
         if (!item) return res.status(404).json({ message: 'Item not found in cart' });
-      
-        console.log("Item quantity before:", item.quantity);
-      
+            
         if (item.quantity > 1) {
           item.quantity -= 1;
           await cart.save();

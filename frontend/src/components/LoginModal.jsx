@@ -19,7 +19,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   useEffect(() => {
     if (isOpen) {
       setFormData({ email: "", password: "" });
-      setShowPassword(false); // optional: reset password visibility too
+      setShowPassword(false);
     }
   }, [isOpen]);
 
@@ -114,7 +114,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
       setShowPassword={setShowPassword}
       handleRegister={handleRegister}
       formData={formData}
-      onClose={onclose}
+      onClose={onClose}
       handleChange={handleChange}
       containerVariants={containerVariants}
       staggerContainer={staggerContainer}

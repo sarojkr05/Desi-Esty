@@ -16,6 +16,7 @@ import {
   closeRegisterModal,
 } from "../redux/modalSlice";
 import { useEffect, useState } from "react";
+import HomePage from "../pages/HomePage";
 
 const Layout = () => {
   const dispatch = useDispatch();

@@ -30,15 +30,15 @@ const Cart = () => {
   }
 
   async function handleIncrement(productId) {
-    const response =  dispatch(increaseProductQuantity(productId));
-    if (response?.payload?._id) {
+    const response =  await dispatch(increaseProductQuantity(productId));
+    if (response?.payload?.success) {
       fetchCartDetails();
     }
   }
 
   async function handleDecrement(productId) {
-    const response =  dispatch(decreaseProductQuantity(productId));
-    if (response?.payload?._id) {
+    const response = await dispatch(decreaseProductQuantity(productId));
+    if (response?.payload?.success) {
       fetchCartDetails();
     }
   }
