@@ -1,9 +1,7 @@
-import React from 'react'
-
 function AdminDashboard() {
   return (
     <div>
-      Here would be you admin dashboard
+      Here would be your admin dashboard!
     </div>
   )
 }

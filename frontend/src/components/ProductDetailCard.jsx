@@ -56,29 +56,28 @@ const ProductDetailCard = () => {
   const { title, description, price, image, category } = product;
 
   async function handleCart() {
-  const response = await dispatch(
-    addProductToCart({ _id: productId, quantity })
-  );
+    const response = await dispatch(
+      addProductToCart({ _id: productId, quantity })
+    );
 
-  console.log("response from back", response.payload);
+    console.log("response from back", response.payload);
 
-  if (response?.payload?._id) {
-    setIsInCart(true);
-    dispatch(getCartDetails());
+    if (response?.payload?._id) {
+      setIsInCart(true);
+      dispatch(getCartDetails());
+    }
   }
-}
-
 
   return (
-    <div className="w-[95%] md:w-4/5 lg:w-2/3 xl:w-1/2 mx-auto my-12 bg-white shadow-xl rounded-2xl p-8 space-y-6">
+    <div className="w-full max-w-4xl mx-auto my-12 bg-white shadow-xl rounded-2xl p-6 sm:p-8 space-y-6">
       <img
         src={image}
         alt={title}
-        className="w-full h-[300px] object-contain rounded-lg shadow"
+        className="w-full h-[300px] object-cover rounded-lg shadow"
       />
 
-      <h1 className="text-2xl font-bold text-amber-500 my-1">{title}</h1>
-      <p className="text-sm font-semibold text-amber-500 my-2">{category}</p>
+      <h1 className="text-2xl font-bold text-amber-500">{title}</h1>
+      <p className="text-sm font-semibold text-amber-500">{category}</p>
       <p className="text-gray-600 text-base leading-relaxed">{description}</p>
 
       <h3 className="text-xl font-semibold text-gray-800">
@@ -108,7 +107,7 @@ const ProductDetailCard = () => {
         </button>
       </div>
 
-      <div className="flex flex-col md:flex-row gap-4 mt-6">
+      <div className="flex flex-col sm:flex-row gap-4 mt-6">
         <button
           onClick={handleCart}
           className="flex-1 py-3 bg-amber-500 text-white rounded-full font-semibold hover:bg-amber-600 transition"

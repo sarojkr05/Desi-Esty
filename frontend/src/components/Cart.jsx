@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { Cross } from "lucide-react";
+import { useDispatch } from "react-redux";
 import {
   decreaseProductQuantity,
   getCartDetails,
@@ -11,7 +10,7 @@ import {
 const Cart = () => {
   const [localCartItems, setLocalCartItems] = useState([]);
   const dispatch = useDispatch();
-  const { cartData } = useSelector((state) => state.cart);
+
 
   async function fetchCartDetails() {
     const response = await dispatch(getCartDetails());
@@ -30,7 +29,7 @@ const Cart = () => {
   }
 
   async function handleIncrement(productId) {
-    const response =  await dispatch(increaseProductQuantity(productId));
+    const response = await dispatch(increaseProductQuantity(productId));
     if (response?.payload?.success) {
       fetchCartDetails();
     }
@@ -53,8 +52,8 @@ const Cart = () => {
   );
 
   return (
-    <div className="max-w-5xl mx-auto mt-12 p-6 bg-white rounded-2xl shadow-lg">
-      <h1 className="text-3xl font-extrabold text-amber-600 mb-6 border-b pb-2">
+    <div className="max-w-5xl mx-auto mt-12 p-4 sm:p-6 bg-white rounded-2xl shadow-lg">
+      <h1 className="text-2xl sm:text-3xl font-extrabold text-amber-600 mb-6 border-b pb-2 text-center sm:text-left">
         Your Shopping Cart
       </h1>
 
@@ -63,20 +62,22 @@ const Cart = () => {
           Your cart is empty 😕
         </p>
       ) : (
-        <div className="space-y-8">
+        <div className="space-y-6 sm:space-y-8">
           {localCartItems.map((item, index) => (
             <div
               key={item.id || index}
-              className="flex flex-col md:flex-row gap-6 items-center border border-amber-100 rounded-xl p-5 shadow-sm hover:shadow-md transition-all duration-200"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start border border-amber-100 rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-all duration-200"
             >
+              {/* Product Image */}
               <img
                 src={item.product.image}
                 alt={item.product.title}
-                className="w-28 h-28 object-cover rounded-xl border border-gray-200"
+                className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl border border-gray-200"
               />
 
-              <div className="flex-1 space-y-1 text-center md:text-left">
-                <h2 className="text-xl font-semibold text-amber-700">
+              {/* Product Info */}
+              <div className="flex-1 space-y-2 text-center sm:text-left">
+                <h2 className="text-lg sm:text-xl font-semibold text-amber-700">
                   {item.product.title}
                 </h2>
                 <p className="text-gray-600 text-sm">{item.category}</p>
@@ -84,7 +85,8 @@ const Cart = () => {
                   {item.product.description}
                 </p>
 
-                <div className="flex justify-center md:justify-start gap-3 mt-3 items-center">
+                {/* Quantity Controls */}
+                <div className="flex justify-center sm:justify-start gap-3 mt-3 items-center">
                   <button
                     onClick={() => handleDecrement(item.product._id)}
                     className="px-3 py-1 bg-amber-100 text-amber-600 rounded-full hover:bg-amber-300 transition"
@@ -103,17 +105,17 @@ const Cart = () => {
                 </div>
               </div>
 
-              <div className="text-right space-y-2">
+              {/* Price and Remove */}
+              <div className="text-center sm:text-right space-y-2 mt-4 sm:mt-0">
                 <p className="text-lg font-bold text-amber-600">
                   ₹ {(item?.product?.price || 0) * item.quantity}
                 </p>
                 <p className="text-sm text-gray-500">
                   ₹ {item?.product?.price || 0} × {item.quantity}
                 </p>
-
                 <button
                   onClick={() => handleRemove(item.product._id)}
-                  className="text-red-500 text-sm hover:underline mt-1"
+                  className="text-red-500 text-sm hover:underline"
                 >
                   ✖ Remove
                 </button>
@@ -121,11 +123,12 @@ const Cart = () => {
             </div>
           ))}
 
-          <div className="text-right pt-8 border-t mt-8">
-            <h2 className="text-2xl font-extrabold text-amber-700">
+          {/* Total & Checkout */}
+          <div className="text-center sm:text-right pt-6 border-t mt-8">
+            <h2 className="text-xl sm:text-2xl font-extrabold text-amber-700">
               Total: ₹ {total.toFixed(2)}
             </h2>
-            <button className="mt-5 px-6 py-3 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition duration-200">
+            <button className="mt-5 w-full sm:w-auto px-6 py-3 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition duration-200">
               🧾 Proceed to Checkout
             </button>
           </div>

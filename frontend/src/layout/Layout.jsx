@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
 import { Toaster } from "react-hot-toast";
 import { selectTotalQuantity } from "../redux/CartSlice";
+import { Menu } from "lucide-react";
 
 import {
   openLoginModal,
@@ -26,6 +27,7 @@ const Layout = () => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
   const totalQuantity = useSelector(selectTotalQuantity);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const registerModalOpen = useSelector(
     (state) => state.modal.registerModalOpen
@@ -36,6 +38,10 @@ const Layout = () => {
       dispatch(openLoginModal());
     }
   }, [location.state, dispatch]);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   const handleLogout = async () => {
     try {
@@ -52,6 +58,7 @@ const Layout = () => {
   const showUserProfile = () => {
     navigate("/user-profile");
   };
+
   return (
     <>
       <Toaster reverseOrder={false} />
@@ -65,6 +72,16 @@ const Layout = () => {
             <ShoppingBag className="w-6 h-6" />
             Desi Etsy
           </Link>
+
+          <div className="md:hidden">
+            <button
+              className="text-gray-700 hover:text-amber-600 transition duration-200"
+              onClick={() => setMobileMenuOpen((prev) => !prev)}
+            >
+              <span className="sr-only">Toggle Menu</span>
+              <Menu className="h-6 w-6" />
+            </button>
+          </div>
 
           <div className="hidden md:flex gap-6 items-center font-medium text-gray-700">
             <Link to="/" className="hover:text-amber-600 transition">
@@ -152,6 +169,81 @@ const Layout = () => {
               </>
             )}
           </div>
+          {/* Mobile Menu */}
+          {mobileMenuOpen && (
+            <div className="md:hidden bg-white shadow-md px-4 py-6 space-y-4 text-gray-700 font-medium z-40 absolute top-[64px] left-0 w-full">
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block hover:text-amber-600 transition"
+              >
+                Home
+              </Link>
+              <Link
+                to="/products"
+                onClick={() => setMobileMenuOpen(false)}
+                className="block hover:text-amber-600 transition"
+              >
+                Products
+              </Link>
+
+              {isLoggedIn ? (
+                <>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block hover:text-amber-600 transition"
+                  >
+                    Logout
+                  </button>
+                  <button
+                    onClick={() => {
+                      showUserProfile();
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block hover:text-amber-600 transition"
+                  >
+                    Profile
+                  </button>
+                  <Link
+                    to="/my-cart"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="block relative hover:text-amber-600 transition"
+                  >
+                    <ShoppingCart className="absolute top-5 left-1" />
+                    {totalQuantity > 0 && (
+                      <span className="ml-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full inline-flex items-center justify-center">
+                        {totalQuantity}
+                      </span>
+                    )}
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={() => {
+                      dispatch(openLoginModal());
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block hover:text-amber-600 transition"
+                  >
+                    Login
+                  </button>
+                  <button
+                    onClick={() => {
+                      dispatch(openRegisterModal());
+                      setMobileMenuOpen(false);
+                    }}
+                    className="block hover:text-amber-600 transition"
+                  >
+                    Register
+                  </button>
+                </>
+              )}
+            </div>
+          )}
         </div>
       </nav>
 
