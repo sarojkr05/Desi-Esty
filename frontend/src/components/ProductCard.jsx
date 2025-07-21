@@ -1,6 +1,5 @@
 import { Link,useNavigate} from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../redux/CartSlice"; 
 
 
 const ProductCard = ({ product }) => {

@@ -7,8 +7,7 @@ import LoginModal from "../components/LoginModal";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
 import { Toaster } from "react-hot-toast";
-
-
+import { selectTotalQuantity } from "../redux/CartSlice";
 
 import {
   openLoginModal,
@@ -25,8 +24,7 @@ const Layout = () => {
   const [userOptions, setUserOptions] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
-  const cartItems = useSelector((state) => state.cart.items);
-  const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalQuantity = useSelector(selectTotalQuantity);
 
   const registerModalOpen = useSelector(
     (state) => state.modal.registerModalOpen
@@ -43,7 +41,6 @@ const Layout = () => {
       await dispatch(logout());
       setUserOptions(false);
       navigate("/");
-
     } catch (error) {
       console.log(error);
     }
@@ -51,12 +48,12 @@ const Layout = () => {
   const handleUserOptions = () => {
     setUserOptions(!userOptions);
   };
-  const showUserProfile =()=>{
-    navigate('/user-profile');
-  }
+  const showUserProfile = () => {
+    navigate("/user-profile");
+  };
   return (
     <>
-      <Toaster  reverseOrder={false} />
+      <Toaster reverseOrder={false} />
 
       <nav className="bg-white shadow-md sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -101,7 +98,7 @@ const Layout = () => {
             )}
             {isLoggedIn && (
               <>
-               <div className="relative">
+                <div className="relative">
                   <User
                     size={22}
                     onClick={handleUserOptions}
@@ -121,8 +118,10 @@ const Layout = () => {
                       </div>
 
                       <ul className="text-sm text-gray-700 divide-y divide-amber-100">
-                        <li onClick={showUserProfile}
-                        className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
+                        <li
+                          onClick={showUserProfile}
+                          className="px-4 py-2 hover:bg-amber-100 cursor-pointer"
+                        >
                           Profile
                         </li>
                         <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
@@ -137,16 +136,18 @@ const Layout = () => {
                       </ul>
                     </div>
                   )}
-                  
                 </div>
-                 <Link to="/my-cart" className="relative group">
-                 <ShoppingCart size={24} className="text-grey-700 hover:text-amber-600 transition duration-200"/>
+                <Link to="/my-cart" className="relative group">
+                  <ShoppingCart
+                    size={24}
+                    className="text-gray-700 hover:text-amber-600 transition duration-200"
+                  />
                   {totalQuantity > 0 && (
                     <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
                       {totalQuantity}
-                  </span>
+                    </span>
                   )}
-                 </Link>
+                </Link>
               </>
             )}
           </div>
