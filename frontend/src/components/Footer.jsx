@@ -53,6 +53,9 @@ const Footer = () => {
 
       <div className="text-center text-sm text-gray-500 py-4 border-t border-gray-100 px-4">
         &copy; {new Date().getFullYear()} Desi Etsy. All rights reserved.
+        &nbsp; <Link to="/terms" className="hover:text-amber-600 transition">Terms of Service</Link>
+        &nbsp; <Link to="/privacy" className="hover:text-amber-600 transition">Privacy Policy</Link>
+        &reg;
       </div>
     </footer>
   );

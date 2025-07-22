@@ -9,6 +9,7 @@ import { logout } from "../redux/authSlice";
 import { Toaster } from "react-hot-toast";
 import { selectTotalQuantity } from "../redux/CartSlice";
 import { Menu } from "lucide-react";
+import { motion } from "framer-motion";
 
 import {
   openLoginModal,
@@ -17,7 +18,6 @@ import {
   closeRegisterModal,
 } from "../redux/modalSlice";
 import { useEffect, useState } from "react";
-import HomePage from "../pages/HomePage";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -55,6 +55,11 @@ const Layout = () => {
   const handleUserOptions = () => {
     setUserOptions(!userOptions);
   };
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
   const showUserProfile = () => {
     navigate("/user-profile");
   };
@@ -73,15 +78,20 @@ const Layout = () => {
             Desi Etsy
           </Link>
 
-          <div className="md:hidden">
-            <button
+          <motion.div className="md:hidden">
+            <motion.button
               className="text-gray-700 hover:text-amber-600 transition duration-200"
-              onClick={() => setMobileMenuOpen((prev) => !prev)}
+              onClick={handleMobileMenuToggle}
             >
-              <span className="sr-only">Toggle Menu</span>
-              <Menu className="h-6 w-6" />
-            </button>
-          </div>
+              <motion.span
+                initial={{ rotate: 0 }}
+                animate={mobileMenuOpen ? { rotate: 45 } : { rotate: 0 }}
+                transition={{ duration: 0.2 }}
+              >
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </motion.span>
+            </motion.button>
+          </motion.div>
 
           <div className="hidden md:flex gap-6 items-center font-medium text-gray-700">
             <Link to="/" className="hover:text-amber-600 transition">
@@ -169,6 +179,7 @@ const Layout = () => {
               </>
             )}
           </div>
+
           {/* Mobile Menu */}
           {mobileMenuOpen && (
             <div className="md:hidden bg-white shadow-md px-4 py-6 space-y-4 text-gray-700 font-medium z-40 absolute top-[64px] left-0 w-full">

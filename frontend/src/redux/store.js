@@ -1,4 +1,4 @@
-import { configureStore, createReducer } from "@reduxjs/toolkit"
+import { configureStore } from "@reduxjs/toolkit"
 import AuthSlice from "../redux/authSlice"
 import modalSlice from "../redux/modalSlice"
 import productSlice from "../redux/productSlice";

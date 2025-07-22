@@ -21,7 +21,6 @@ export const addProductToCart = createAsyncThunk(
         success: "Product added successfully to the cart",
       });
       const apiResponse = await response;
-      console.log("res from backend", apiResponse);
       return apiResponse.data;
     } catch (error) {
       console.log(error);
