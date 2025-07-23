@@ -31,7 +31,6 @@ const ViewProducts = () => {
     statusFilter === null
       ? myProducts
       : myProducts.filter((p) => p.isApproved === statusFilter);
- console.log(filteredProducts)
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error}</p>;
 

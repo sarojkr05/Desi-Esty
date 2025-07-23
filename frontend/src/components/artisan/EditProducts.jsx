@@ -15,7 +15,6 @@ const EditProducts = () => {
   }, [dispatch]);
 
   const productToEdit = products?.find((p) => p._id === id);
-  console.log(productToEdit, "productToEdit");
 
   
 

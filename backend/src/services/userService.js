@@ -48,7 +48,8 @@ export const loginUser = async ({ email, password }) => {
       name: user.name,
       email: user.email,
       role: user.role,
-       isProfileComplete: user.isProfileComplete
+      isProfileComplete: user.isProfileComplete,
+      isApproved: user.isApproved
     },
     token,
   };

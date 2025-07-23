@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   PlusCircle,
   ShoppingBag,
@@ -12,7 +12,7 @@ import { fetchCurrentUser } from "../redux/userSlice";
 import { fetchMyProducts } from "../redux/productSlice";
 const ArtisanDashboard = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.auth.userData);
   const { myProducts = [] } = useSelector((state) => state.products);
 
   const { name, isApproved } = currentUser || {};
@@ -20,7 +20,6 @@ const ArtisanDashboard = () => {
   useEffect(() => {
     dispatch(fetchCurrentUser());
     dispatch(fetchMyProducts()).then((res) => {
-      console.log("Products from backend:", res.payload); // This should print array
     });
   }, [dispatch]);
   const navigate = useNavigate();
@@ -31,9 +30,6 @@ const ArtisanDashboard = () => {
   const approvedCount = myProducts.filter((p) => p.isApproved).length;
 
   const pendingCount = myProducts.filter((p) => !p.isApproved).length;
-  console.log("Artisan Products:", totalCount); // Should show array
-  console.log("Approved:", approvedCount);
-  console.log("Pending:", pendingCount);
 
   const handleAddProduct = () => {
     navigate("/add-product");
@@ -44,7 +40,6 @@ const ArtisanDashboard = () => {
 
   return (
     <>
-     
       <div className="min-h-screen px-6 py-10 bg-gradient-to-br from-white to-amber-50 text-gray-800">
         <div className="max-w-5xl mx-auto">
           <div className="bg-white rounded-2xl shadow-md p-6 mb-8">
@@ -91,9 +86,7 @@ const ArtisanDashboard = () => {
                 <PlusCircle className="w-5 h-5" />
                 Add New Product
               </button>
-      
 
-          
               <button
                 onClick={handleViewProduct}
                 className="inline-flex items-center gap-2 px-6 py-3 bg-amber-500 text-white font-semibold rounded-full shadow hover:bg-amber-600 transition"
@@ -101,7 +94,6 @@ const ArtisanDashboard = () => {
                 <Eye className="w-5 h-5" />
                 View Products
               </button>
-          
           </div>
         </div>
       </div>

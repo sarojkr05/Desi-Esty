@@ -9,36 +9,53 @@ const Footer = () => {
         
         {/* Brand */}
         <div>
-          <h2 className="text-2xl font-bold text-amber-600 mb-2">Desi Etsy</h2>
-          <p className="text-sm text-gray-600">
+          <h2 className="text-2xl font-bold text-amber-600 mb-3">Desi Etsy</h2>
+          <p className="text-sm text-gray-600 leading-relaxed">
             Celebrating local craftsmanship — shop handmade treasures from artisans across India.
           </p>
         </div>
 
         {/* Navigation */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">Quick Links</h3>
+          <h3 className="text-lg font-semibold mb-3">Quick Links</h3>
           <ul className="space-y-2 text-sm">
-            <li><Link to="/" className="hover:text-amber-600 transition">Home</Link></li>
-            <li><Link to="/products" className="hover:text-amber-600 transition">Products</Link></li>
-            <li><Link to="/login" className="hover:text-amber-600 transition">Login</Link></li>
-            <li><Link to="/register" className="hover:text-amber-600 transition">Register</Link></li>
+            <li>
+              <Link to="/" className="hover:text-amber-600 transition">Home</Link>
+            </li>
+            <li>
+              <Link to="/products" className="hover:text-amber-600 transition">Products</Link>
+            </li>
+            <li>
+              <Link to="/login" className="hover:text-amber-600 transition">Login</Link>
+            </li>
+            <li>
+              <Link to="/register" className="hover:text-amber-600 transition">Register</Link>
+            </li>
           </ul>
         </div>
 
         {/* Social */}
         <div>
-          <h3 className="text-lg font-semibold mb-2">Follow Us</h3>
-          <div className="flex gap-4">
-            <a href="#" className="hover:text-amber-600 transition"><Facebook /></a>
-            <a href="#" className="hover:text-amber-600 transition"><Instagram /></a>
-            <a href="#" className="hover:text-amber-600 transition"><Twitter /></a>
+          <h3 className="text-lg font-semibold mb-3">Follow Us</h3>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-amber-600 transition" aria-label="Facebook">
+              <Facebook size={20} />
+            </a>
+            <a href="#" className="hover:text-amber-600 transition" aria-label="Instagram">
+              <Instagram size={20} />
+            </a>
+            <a href="#" className="hover:text-amber-600 transition" aria-label="Twitter">
+              <Twitter size={20} />
+            </a>
           </div>
         </div>
       </div>
 
-      <div className="text-center text-sm text-gray-500 py-4 border-t border-gray-100">
+      <div className="text-center text-sm text-gray-500 py-4 border-t border-gray-100 px-4">
         &copy; {new Date().getFullYear()} Desi Etsy. All rights reserved.
+        &nbsp; <Link to="/terms" className="hover:text-amber-600 transition">Terms of Service</Link>
+        &nbsp; <Link to="/privacy" className="hover:text-amber-600 transition">Privacy Policy</Link>
+        &reg;
       </div>
     </footer>
   );
