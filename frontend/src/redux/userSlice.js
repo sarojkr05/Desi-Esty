@@ -1,16 +1,18 @@
 // src/redux/userSlice.js
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import axiosInstance from "../helpers/axiosInstance";
 
 // Async action to fetch the current user
 export const fetchCurrentUser = createAsyncThunk(
   "user/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5000/auth/me", {
+      const res = await axiosInstance.get("/auth/me", {
         withCredentials: true,
       });
-      return res.data; // Make sure this is the actual user object
+    
+      return res.data;
+      
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch current user"
@@ -25,14 +27,14 @@ export const updateUserProfile = createAsyncThunk(
   "user/updateUserProfile",
   async (profileData, { rejectWithValue }) => {
     try {
-      const { data } = await axios.put(
-        "/api/users/complete-profile",
+      const { data } = await axiosInstance.put(
+        "/auth/complete-profile",
         profileData,
         {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true, // important if using cookies
+          withCredentials: true, 
         }
       );
       return data.user;
@@ -48,7 +50,7 @@ export const fetchUserProfile = createAsyncThunk(
   "user/fetchUserProfile",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axios.get("http://localhost:5000/auth/profile", {
+      const res = await axiosInstance.get("http://localhost:5000/auth/profile", {
         withCredentials: true,
       });
       return res.data;

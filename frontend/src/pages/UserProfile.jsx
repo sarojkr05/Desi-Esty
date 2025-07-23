@@ -1,21 +1,28 @@
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
-import { updateUserProfile } from "../redux/userSlice";
+import { updateUserProfile, fetchCurrentUser } from "../redux/userSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { useState ,useEffect } from "react";
+import { useState, useEffect } from "react";
 const UserProfile = () => {
   const dispatch = useDispatch();
   const { currentUser } = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
+    name: currentUser?.name || "",
+    email: currentUser?.email || "",
     mobileNumber: currentUser?.mobileNumber || "",
     address: currentUser?.address || "",
     city: currentUser?.city || "",
     state: currentUser?.state || "",
     country: currentUser?.country || "",
   });
-  console.log("curr user",currentUser)
-   useEffect(() => {
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+  }, [dispatch]);
+  console.log("curr user", currentUser);
+
+  useEffect(() => {
     if (currentUser) {
       setFormData((prev) => ({
         ...prev,
@@ -30,10 +37,15 @@ const UserProfile = () => {
     }
   }, [currentUser]);
 
- if (!currentUser) return <p>Loading user profile...</p>;
+  if (!currentUser) return <p>Loading user profile...</p>;
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(updateUserProfile(formData));
@@ -57,6 +69,7 @@ const UserProfile = () => {
             <label className="font-semibold">Full Name</label>
             <input
               type="text"
+              name="name"
               value={formData.name}
               onChange={handleChange}
               className="border border-amber-500 px-2 py-1 rounded mt-1 text-center w-1/2 focus:outline-none focus:border-amber-600"
@@ -68,6 +81,7 @@ const UserProfile = () => {
               <label className="font-semibold block mb-1">Contact No.</label>
               <input
                 type="text"
+                  name="mobileNumber"
                 value={formData.mobileNumber}
                 onChange={handleChange}
                 className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
@@ -77,6 +91,7 @@ const UserProfile = () => {
               <label className="font-semibold block mb-1">Email Id</label>
               <input
                 type="text"
+                  name="email"
                 value={formData.email}
                 onChange={handleChange}
                 readOnly
@@ -88,6 +103,7 @@ const UserProfile = () => {
             <label className="font-semibold block mb-1">Address</label>
             <input
               type="text"
+                name="address"
               value={formData.address}
               onChange={handleChange}
               className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
@@ -98,6 +114,7 @@ const UserProfile = () => {
             <input
               type="text"
               value={formData.city}
+                name="city"
               onChange={handleChange}
               className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
               placeholder="Enter City"
@@ -108,6 +125,7 @@ const UserProfile = () => {
             <input
               type="text"
               value={formData.state}
+                name="state"
               onChange={handleChange}
               className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
               placeholder="Enter State"
@@ -118,6 +136,7 @@ const UserProfile = () => {
             <input
               type="text"
               value={formData.country}
+                name="country"
               onChange={handleChange}
               className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
               readOnly
