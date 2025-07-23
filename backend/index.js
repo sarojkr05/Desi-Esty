@@ -38,16 +38,8 @@ app.use("/product", getAllApprovedProducts);
 app.use("/cart",  cartRouter);
 
 
-
-
 app.listen(process.env.PORT, () => {
     connectDB();
 
     console.log(`Server got started on port ${serverConfig.PORT}...`)
 })
-
-//db password MuKcXwbUHaDoVN1L
-//db username sarojkr05
-// Created a new repository on GitHub
-//pkd22cs059
-//NvVh7VmDJQK7r4uu

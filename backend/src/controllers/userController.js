@@ -113,21 +113,27 @@ export const getUserProfileDetails = async (req, res) => {
 };
 export const updateUserProfile = async (req, res) => {
   try {
-    const userId = req.user._id; // From protect middleware
+    const userId = req.user._id;
+    const { mobileNumber, address, city, state, country } = req.body;
+
+    console.log("Update body:", req.body); // ✅ move log here
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,
       {
-        ...req.body, // Only include allowed fields (for security, validate in real apps)
+        mobileNumber,
+        address,
+        city,
+        state,
+        country,
+        isProfileComplete: true,
       },
       { new: true, runValidators: true }
-    ).select("-password");
+    );
 
-    res.status(200).json({
-      message: "Profile updated successfully",
-      user: updatedUser,
-    });
+    res.status(200).json({ success: true, user: updatedUser });
   } catch (error) {
-    res.status(500).json({ message: "Something went wrong" });
+    console.error("Update profile error:", error.message);
+    res.status(500).json({ message: "Server error: Unable to update profile" });
   }
 };
