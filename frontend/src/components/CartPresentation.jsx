@@ -1,4 +1,7 @@
+import { Link, useNavigate } from "react-router-dom";
+
 const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, localCartItems, total }) => {
+  const navigate = useNavigate()
   return (
     <div className="max-w-5xl mx-auto mt-12 p-4 sm:p-6 bg-white rounded-2xl shadow-lg">
       <h1 className="text-2xl sm:text-3xl font-extrabold text-amber-600 mb-6 border-b pb-2 text-center sm:text-left">
@@ -76,7 +79,7 @@ const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, loca
             <h2 className="text-xl sm:text-2xl font-extrabold text-amber-700">
               Total: ₹ {total.toFixed(2)}
             </h2>
-            <button className="mt-5 w-full sm:w-auto px-6 py-3 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition duration-200">
+            <button onClick={() => navigate("/checkout")} className="mt-10 w-full sm:w-auto px-6 py-3 bg-amber-500 text-white rounded-xl font-semibold hover:bg-amber-600 transition duration-200">
               🧾 Proceed to Checkout
             </button>
           </div>

@@ -54,6 +54,7 @@ export const getCartDetails = createAsyncThunk("/cart/getDetails", async () => {
     toast.promise(response, {
       loading: "Fetching cart details",
       error: "Something went wrong cannot fetch cart",
+      success: "Cart details fetched successfully",
     });
     const apiResponse = await response;
     return apiResponse.data;
