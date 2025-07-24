@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   decreaseProductQuantity,
@@ -7,11 +7,12 @@ import {
   removeProductFromCart,
 } from "../redux/CartSlice";
 import CartPresentation from "./CartPresentation";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
   const [localCartItems, setLocalCartItems] = useState([]);
   const dispatch = useDispatch();
-
+  const navigate =useNavigate()
 
   async function fetchCartDetails() {
     const response = await dispatch(getCartDetails());
@@ -43,6 +44,9 @@ const Cart = () => {
     }
   }
 
+  const handleCheckout = ()=>{
+    navigate("/place-order");
+  }
   useEffect(() => {
     fetchCartDetails();
   }, []);
@@ -60,6 +64,7 @@ const Cart = () => {
       handleIncrement={handleIncrement}
       handleRemove={handleRemove}
       total={total}
+      handleCheckout={handleCheckout}
     />
   )
 };

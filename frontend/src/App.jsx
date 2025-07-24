@@ -4,6 +4,7 @@ import Layout from "./layout/Layout";
 import HomePage from "./pages/HomePage";
 import NotFoundPage from "./pages/NotFoundPage";
 import DeniedPage from "./pages/DeniedPage";
+import OrderPage from "./pages/OrdersPage";
 import ArtisanDashboard from "./pages/ArtisanDashboard";
 import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
@@ -44,6 +45,7 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
           <Route path="/my-cart" element={<Cart />} />
+          <Route path="/place-order" element={<OrderPage />} />
         </Route>
 
         {/* Fallback */}

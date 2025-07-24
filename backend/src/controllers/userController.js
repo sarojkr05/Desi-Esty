@@ -82,6 +82,9 @@ export const getCurrentUser = async (req, res) => {
 export const getUserProfileDetails = async (req, res) => {
   try {
     const user = await User.findById(req.user._id).select("-password");
+
+    console.log("Fetched user from controller:", user); 
+
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -95,8 +98,10 @@ export const getUserProfileDetails = async (req, res) => {
       city,
       state,
       country,
+      isProfileComplete // ✅ make sure this is destructured
     } = user;
 
+    // ✅ Ensure you're returning it here
     res.status(200).json({
       id: _id,
       name,
@@ -106,11 +111,14 @@ export const getUserProfileDetails = async (req, res) => {
       city,
       state,
       country,
+      isProfileComplete // ✅ must be included in response
     });
+
   } catch (err) {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 export const updateUserProfile = async (req, res) => {
   try {
     const userId = req.user._id;

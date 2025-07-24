@@ -4,6 +4,7 @@ import modalSlice from "../redux/modalSlice"
 import productSlice from "../redux/productSlice";
 import cartSlice from "../redux/CartSlice";
 import userSlice from "../redux/userSlice";
+import orderSlice from "../redux/orderSlice"
 export const store = configureStore({
     reducer: {
         auth: AuthSlice,
@@ -11,5 +12,6 @@ export const store = configureStore({
         products: productSlice,
         cart: cartSlice,
         user:userSlice,
+        order:orderSlice,
     }
 });
