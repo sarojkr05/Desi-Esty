@@ -14,6 +14,8 @@ import AddProducts from "./components/artisan/AddProducts";
 import UserProfile from "./pages/UserProfile";
 import ViewProducts from "./components/artisan/ViewProducts";
 import EditProducts from "./components/artisan/EditProducts";
+import OrderPage from "./pages/OrderPage";
+import CheckoutPage from "./pages/CheckoutPage";
 import UnapprovedArtisans from "./components/admin/UnApprovedArtisans";
 import UnapprovedProducts from "./components/admin/UnApprovedProducts";
 
@@ -43,7 +45,7 @@ function App() {
           </Route>
         </Route>
 
-        {/* Shared Routes */}
+       {/* Shared Routes */}
         <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
@@ -53,6 +55,9 @@ function App() {
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
+     <Route path="/checkout" element={<CheckoutPage />} />
+     <Route path="/order-confirmation" element={<OrderPage />} />
+
     </Routes>
   );
 }

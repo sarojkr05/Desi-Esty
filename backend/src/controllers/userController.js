@@ -116,7 +116,7 @@ export const updateUserProfile = async (req, res) => {
     const userId = req.user._id;
     const { mobileNumber, address, city, state, country } = req.body;
 
-    console.log("Update body:", req.body); // ✅ move log here
+ 
 
     const updatedUser = await User.findByIdAndUpdate(
       userId,

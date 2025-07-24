@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   decreaseProductQuantity,
@@ -7,6 +6,7 @@ import {
   removeProductFromCart,
 } from "../redux/CartSlice";
 import CartPresentation from "./CartPresentation";
+import { useEffect, useState } from "react";
 
 const Cart = () => {
   const [localCartItems, setLocalCartItems] = useState([]);

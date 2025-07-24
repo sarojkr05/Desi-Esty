@@ -10,7 +10,6 @@ export const fetchCurrentUser = createAsyncThunk(
       const res = await axiosInstance.get("/auth/me", {
         withCredentials: true,
       });
-
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -50,7 +49,8 @@ export const fetchUserProfile = createAsyncThunk(
       const res = await axiosInstance.get("/auth/profile", {
         withCredentials: true,
       });
-      return res.data;
+       console.log("Profile fetched:", res.data); 
+      return res.data; 
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch profile"
@@ -83,6 +83,7 @@ const userSlice = createSlice({
         state.currentUser = null;
         state.error = action.payload;
       })
+     builder
       .addCase(fetchUserProfile.pending, (state) => {
         state.loading = true;
       })
