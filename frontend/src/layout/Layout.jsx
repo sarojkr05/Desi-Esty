@@ -27,7 +27,7 @@ const Layout = () => {
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
   const cartItems = useSelector((state) => state.cart.items);
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-
+  
   const registerModalOpen = useSelector(
     (state) => state.modal.registerModalOpen
   );
@@ -54,6 +54,7 @@ const Layout = () => {
   const showUserProfile =()=>{
     navigate('/user-profile');
   }
+  
   return (
     <>
       <Toaster  reverseOrder={false} />
@@ -125,7 +126,9 @@ const Layout = () => {
                         className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
                           Profile
                         </li>
-                        <li className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
+                        <li 
+                        
+                        className="px-4 py-2 hover:bg-amber-100 cursor-pointer">
                           My Orders
                         </li>
                         <li

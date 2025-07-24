@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import {
   removeFromCart,
   incrementQuantity,
@@ -16,7 +17,10 @@ const Cart = () => {
     toast.success("Item removed from cart!");
 
   };
-
+  const navigate = useNavigate();
+  const handleProceedToCheckout = () => {
+    navigate("/checkout");
+  };
   return (
     <div className="max-w-5xl mx-auto mt-12 p-6 bg-white rounded-2xl shadow-lg">
       <h1 className="text-3xl font-extrabold text-amber-700 mb-6 border-b pb-2">
@@ -83,7 +87,7 @@ const Cart = () => {
             </h2>
             <button
               className="mt-5 px-6 py-3 bg-amber-600 text-white rounded-xl font-semibold hover:bg-amber-700 transition duration-200"
-              onClick={() => (window.location.href = "/checkout")}
+              onClick={handleProceedToCheckout}
             >
               🧾 Proceed to Checkout
             </button>

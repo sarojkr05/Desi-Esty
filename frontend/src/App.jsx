@@ -14,8 +14,9 @@ import AddProducts from "./components/artisan/AddProducts";
 import UserProfile from "./pages/UserProfile";
 import ViewProducts from "./components/artisan/ViewProducts";
 import EditProducts from "./components/artisan/EditProducts";
-
-
+import CartPage from "./pages/CartPage";
+import OrderPage from "./pages/OrderPage";
+import CheckoutPage from "./pages/CheckoutPage";
 function App() {
   return (
     
@@ -39,13 +40,7 @@ function App() {
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
         </Route>
 
-        {/* Shared Routes */}
-        <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
-          <Route path="/products" element={<Products />} />
-          <Route path="/product/:id" element={<ProductDetailsPage />} />
-        </Route>
-
-<<<<<<< HEAD
+        
        {/* Shared Routes */}
         <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
           <Route path="/products" element={<Products />} />
@@ -53,14 +48,12 @@ function App() {
           <Route path="/my-cart" element={<CartPage />} />
         </Route>
 
-
-=======
-       
-   
->>>>>>> 6bb47a87d6cd45e61792c94991aa2a537a6e145d
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
+     <Route path="/checkout" element={<CheckoutPage />} />
+     <Route path="/order-confirmation" element={<OrderPage />} />
+
     </Routes>
   );
 }
