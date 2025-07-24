@@ -1,7 +1,7 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
-import { selectTotalQuantity } from "../redux/CartSlice";
+import { getCartDetails, selectTotalQuantity } from "../redux/CartSlice";
 
 import {
   openLoginModal,
@@ -32,6 +32,12 @@ const Layout = () => {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
+
+  useEffect(() => {
+  if (isLoggedIn) {
+    dispatch(getCartDetails());
+  }
+}, [dispatch, isLoggedIn]);
 
   const handleLogout = async () => {
     try {
@@ -66,6 +72,7 @@ const Layout = () => {
       showUserProfile={showUserProfile}
       userOptions={userOptions}
       setMobileMenuOpen={setMobileMenuOpen}
+      mobileMenuOpen={mobileMenuOpen}
     />
   )
 };

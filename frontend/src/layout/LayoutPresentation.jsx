@@ -1,4 +1,3 @@
-import React from "react";
 import { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { Menu } from "lucide-react";
@@ -15,8 +14,20 @@ import {
 } from "../redux/modalSlice";
 import { useDispatch } from "react-redux";
 
-const LayoutPresentation = ({ isLoggedIn, loginModalOpen, registerModalOpen, handleMobileMenuToggle, mobileMenuOpen, handleLogout, handleUserOptions, userOptions, totalQuantity, showUserProfile, setMobileMenuOpen}) => {
-    const dispatch = useDispatch()
+const LayoutPresentation = ({
+  isLoggedIn,
+  loginModalOpen,
+  registerModalOpen,
+  handleMobileMenuToggle,
+  mobileMenuOpen,
+  handleLogout,
+  handleUserOptions,
+  userOptions,
+  totalQuantity,
+  showUserProfile,
+  setMobileMenuOpen,
+}) => {
+  const dispatch = useDispatch();
   return (
     <>
       <Toaster reverseOrder={false} />
@@ -118,16 +129,21 @@ const LayoutPresentation = ({ isLoggedIn, loginModalOpen, registerModalOpen, han
                     </div>
                   )}
                 </div>
-                <Link to="/my-cart" className="relative group">
-                  <ShoppingCart
-                    size={24}
-                    className="text-gray-700 hover:text-amber-600 transition duration-200"
-                  />
-                  {totalQuantity > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
-                      {totalQuantity}
-                    </span>
-                  )}
+                <Link to="/my-cart" className="group">
+                  <div className="flex items-center gap-2 relative">
+                    <span className="hover:text-amber-600">Cart</span>
+                    <div className="relative">
+                      <ShoppingCart
+                        size={24}
+                        className="text-gray-700 group-hover:text-amber-600 transition duration-200"
+                      />
+                      {totalQuantity > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center">
+                          {totalQuantity}
+                        </span>
+                      )}
+                    </div>
+                  </div>
                 </Link>
               </>
             )}
@@ -174,14 +190,19 @@ const LayoutPresentation = ({ isLoggedIn, loginModalOpen, registerModalOpen, han
                   <Link
                     to="/my-cart"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block relative hover:text-amber-600 transition"
+                    className="block hover:text-amber-600 transition"
                   >
-                    <ShoppingCart className="absolute top-5 left-1" />
-                    {totalQuantity > 0 && (
-                      <span className="ml-2 bg-red-600 text-white text-[10px] font-bold w-5 h-5 rounded-full inline-flex items-center justify-center">
-                        {totalQuantity}
-                      </span>
-                    )}
+                    <div className="flex items-center gap-2 relative">
+                      <span className="">Cart</span>
+                      <div className="relative">
+                        <ShoppingCart className="w-5 h-5" />
+                        {totalQuantity > 0 && (
+                          <span className="absolute -top-2 -left-2 bg-red-600 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+                            {totalQuantity}
+                          </span>
+                        )}
+                      </div>
+                    </div>
                   </Link>
                 </>
               ) : (

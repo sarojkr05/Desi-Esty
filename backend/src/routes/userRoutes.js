@@ -11,5 +11,5 @@ userRouter.get("/profile", protect, getUserProfileDetails);
 userRouter.put("/complete-profile", protect, updateUserProfile); 
 
 // Protected route
-userRouter.get("/me",protect, getCurrentUser);
+userRouter.get("/me", protect, getCurrentUser);
 export default userRouter;

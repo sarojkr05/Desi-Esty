@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
+  const currentUser = useSelector((state) => state.auth);
 
   const [formData, setFormData] = useState({
     name: currentUser?.name || "",
