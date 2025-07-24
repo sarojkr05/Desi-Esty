@@ -115,7 +115,7 @@ const RegisterModal = ({ isOpen, onClose, onSwitchToLogin }) => {
       containerVariants={containerVariants}
       staggerContainer={staggerContainer}
       fadeUp={fadeUp}
-      onClose={onclose}
+      onClose={onClose}
       formData={formData}
       role={role}
       setShowPassword={setShowPassword}

@@ -1,21 +1,25 @@
+<<<<<<< HEAD
 import { useSelector, useDispatch } from "react-redux";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+=======
+import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+>>>>>>> 97d45a6c12f416de7b0f9966fbeaf93171787895
 import {
-  removeFromCart,
-  incrementQuantity,
-  decrementQuantity,
+  decreaseProductQuantity,
+  getCartDetails,
+  increaseProductQuantity,
+  removeProductFromCart,
 } from "../redux/CartSlice";
+import CartPresentation from "./CartPresentation";
 
 const Cart = () => {
+  const [localCartItems, setLocalCartItems] = useState([]);
   const dispatch = useDispatch();
-  const cartItems = useSelector((state) => state.cart.items);
-  const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
-  const removeItem = (item) => {
-    dispatch(removeFromCart(item));
-    toast.success("Item removed from cart!");
 
+<<<<<<< HEAD
   };
   const navigate = useNavigate();
   const handleProceedToCheckout = () => {
@@ -96,6 +100,57 @@ const Cart = () => {
       )}
     </div>
   );
+=======
+  async function fetchCartDetails() {
+    const response = await dispatch(getCartDetails());
+    const cart = response?.payload;
+
+    if (cart?.items) {
+      setLocalCartItems(cart.items);
+    }
+  }
+
+  async function handleRemove(productId) {
+    const response = await dispatch(removeProductFromCart(productId));
+    if (response?.payload?._id) {
+      fetchCartDetails();
+    }
+  }
+
+  async function handleIncrement(productId) {
+    const response = await dispatch(increaseProductQuantity(productId));
+    if (response?.payload?.success) {
+      fetchCartDetails();
+    }
+  }
+
+  async function handleDecrement(productId) {
+    const response = await dispatch(decreaseProductQuantity(productId));
+    if (response?.payload?.success) {
+      fetchCartDetails();
+    }
+  }
+
+  useEffect(() => {
+    fetchCartDetails();
+  }, []);
+
+  const total = localCartItems.reduce(
+    (sum, item) => sum + (item?.product?.price || 0) * item.quantity,
+    0
+  );
+
+  return (
+    <CartPresentation 
+      localCartItems={localCartItems}
+      setLocalCartItems={setLocalCartItems}
+      handleDecrement={handleDecrement}
+      handleIncrement={handleIncrement}
+      handleRemove={handleRemove}
+      total={total}
+    />
+  )
+>>>>>>> 97d45a6c12f416de7b0f9966fbeaf93171787895
 };
 
 export default Cart;

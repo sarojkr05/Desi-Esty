@@ -1,22 +1,13 @@
-import { Link, Outlet, useLocation, useNavigate } from "react-router-dom";
-
-import { ShoppingBag, ShoppingCart, User, X } from "lucide-react";
-import Footer from "../components/Footer";
-import RegisterModal from "../components/RegisterModal";
-import LoginModal from "../components/LoginModal";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
-import { Toaster } from "react-hot-toast";
-
-
+import { selectTotalQuantity } from "../redux/CartSlice";
 
 import {
   openLoginModal,
-  openRegisterModal,
-  closeLoginModal,
-  closeRegisterModal,
 } from "../redux/modalSlice";
 import { useEffect, useState } from "react";
+import LayoutPresentation from "./LayoutPresentation";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -25,9 +16,15 @@ const Layout = () => {
   const [userOptions, setUserOptions] = useState(false);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const loginModalOpen = useSelector((state) => state.modal.loginModalOpen);
+<<<<<<< HEAD
   const cartItems = useSelector((state) => state.cart.items);
   const totalQuantity = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   
+=======
+  const totalQuantity = useSelector(selectTotalQuantity);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+>>>>>>> 97d45a6c12f416de7b0f9966fbeaf93171787895
   const registerModalOpen = useSelector(
     (state) => state.modal.registerModalOpen
   );
@@ -38,12 +35,15 @@ const Layout = () => {
     }
   }, [location.state, dispatch]);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const handleLogout = async () => {
     try {
       await dispatch(logout());
       setUserOptions(false);
       navigate("/");
-
     } catch (error) {
       console.log(error);
     }
@@ -51,6 +51,7 @@ const Layout = () => {
   const handleUserOptions = () => {
     setUserOptions(!userOptions);
   };
+<<<<<<< HEAD
   const showUserProfile =()=>{
     navigate('/user-profile');
   }
@@ -179,6 +180,31 @@ const Layout = () => {
       <Footer />
     </>
   );
+=======
+
+  const handleMobileMenuToggle = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+
+  const showUserProfile = () => {
+    navigate("/user-profile");
+  };
+
+  return (
+    <LayoutPresentation 
+      isLoggedIn={isLoggedIn}
+      loginModalOpen={loginModalOpen}
+      totalQuantity={totalQuantity}
+      registerModalOpen={registerModalOpen}
+      handleLogout={handleLogout}
+      handleUserOptions={handleUserOptions}
+      handleMobileMenuToggle={handleMobileMenuToggle}
+      showUserProfile={showUserProfile}
+      userOptions={userOptions}
+      setMobileMenuOpen={setMobileMenuOpen}
+    />
+  )
+>>>>>>> 97d45a6c12f416de7b0f9966fbeaf93171787895
 };
 
 export default Layout;

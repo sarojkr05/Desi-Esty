@@ -7,8 +7,8 @@ const userRouter = express.Router();
 userRouter.post("/signup", signup);
 userRouter.post("/login", login);
 userRouter.post("/logout", logout);
-userRouter.get("/profile",  getUserProfileDetails);
-userRouter.put("/complete-profile",protect, updateUserProfile); 
+userRouter.get("/profile", protect, getUserProfileDetails);
+userRouter.put("/complete-profile", protect, updateUserProfile); 
 
 // Protected route
 userRouter.get("/me",protect, getCurrentUser);

@@ -34,8 +34,6 @@ export const loginUser = createAsyncThunk("/auth/signin", async (userData) => {
   try {
     const responsePromise = axiosInstance.post("/auth/login", userData);
 
-    console.log("responsePromise", responsePromise);
-
     await toast.promise(responsePromise, {
       loading: "Hold back tight, we're logging you in...",
       success: (res) => res?.data?.message || "Login successful!",

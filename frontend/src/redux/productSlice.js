@@ -20,7 +20,6 @@ export const fetchMyProducts = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get("/products/mine");
-      console.log("Fetched products:", response.data);
       return response.data;
     } catch (error) {
       toast.error("Failed to fetch products");

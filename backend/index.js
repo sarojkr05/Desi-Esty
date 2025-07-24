@@ -7,7 +7,7 @@ import adminRouter from "./src/routes/adminRoutes.js";
 import cartRouter from "./src/routes/cartRoutes.js";
 import getAllApprovedProducts from "./src/routes/productRuoutesFromUser.js";
 import productRouter from "./src/routes/productRoutes.js";
-
+import orderRouter from "./src/routes/orderRoutes.js";
 
 import dotenv from "dotenv";
 import cors from 'cors';
@@ -36,8 +36,7 @@ app.use("/admin", adminRouter);
 app.use("/products", productRouter); 
 app.use("/product", getAllApprovedProducts); 
 app.use("/cart",  cartRouter);
-
-
+app.use("/orders", orderRouter);
 
 
 app.listen(process.env.PORT, () => {
@@ -45,9 +44,3 @@ app.listen(process.env.PORT, () => {
 
     console.log(`Server got started on port ${serverConfig.PORT}...`)
 })
-
-//db password MuKcXwbUHaDoVN1L
-//db username sarojkr05
-// Created a new repository on GitHub
-//pkd22cs059
-//NvVh7VmDJQK7r4uu

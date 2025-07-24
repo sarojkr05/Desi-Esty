@@ -7,6 +7,7 @@ export const getCartByUserId = async (userId) => {
   }
   return cart;
 };
+
 export const modifyProductInCart = async (userId, productId, operation) => {
     let cart = await Cart.findOne({ user: userId });
     if (!cart) {

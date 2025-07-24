@@ -9,7 +9,7 @@ import Products from "./pages/Products";
 import ProductDetailsPage from "./pages/ProductDetailsPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import RequiredAuth from "./components/RequiredAuth";
-
+import Cart from "./components/Cart";
 import AddProducts from "./components/artisan/AddProducts";
 import UserProfile from "./pages/UserProfile";
 import ViewProducts from "./components/artisan/ViewProducts";
@@ -40,12 +40,15 @@ function App() {
           <Route path="/dashboard/admin" element={<AdminDashboard />} />
         </Route>
 
+<<<<<<< HEAD
         
+=======
+>>>>>>> 97d45a6c12f416de7b0f9966fbeaf93171787895
        {/* Shared Routes */}
         <Route element={<RequiredAuth allowedRoles={["user", "artisan"]} />}>
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
-          <Route path="/my-cart" element={<CartPage />} />
+          <Route path="/my-cart" element={<Cart />} />
         </Route>
 
         {/* Fallback */}

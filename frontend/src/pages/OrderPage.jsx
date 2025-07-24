@@ -25,7 +25,7 @@ const OrderPage = () => {
         </p>
       </div>
 
-      {/* 📦 Order Summary */}
+      {/* Order Summary */}
       <div className="mt-10">
         <h2 className="text-xl font-semibold text-amber-800 mb-4">Your Order Summary</h2>
 
@@ -56,7 +56,7 @@ const OrderPage = () => {
         </div>
       </div>
 
-      {/* 🔙 Back to Shop */}
+     
       <div className="text-center mt-10">
         <button
           onClick={handleBackToShop}

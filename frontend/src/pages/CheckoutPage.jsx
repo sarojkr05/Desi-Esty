@@ -29,10 +29,10 @@ const CheckoutPage = () => {
   return (
     <div className="max-w-4xl mx-auto mt-10 mb-20 p-6 bg-white shadow-xl rounded-2xl border border-amber-100">
       <h2 className="text-3xl font-bold text-amber-700 mb-6 text-center">
-        Checkout Summary 🛒
+        Checkout Summary 
       </h2>
 
-      {/* 🛍️ Product Summary */}
+      {/*  Product Summary */}
       <section className="mb-10">
         <h3 className="text-xl font-semibold text-amber-800 mb-4">Your Products</h3>
         {cartItems.length === 0 ? (
@@ -65,7 +65,7 @@ const CheckoutPage = () => {
         </div>
       </section>
 
-      {/* 👤 User Details */}
+      {/*  User Details */}
       <section className="mb-8">
         <h3 className="text-xl font-semibold text-amber-800 mb-4">Your Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -109,7 +109,7 @@ const CheckoutPage = () => {
         />
       </section>
 
-      {/* 🚀 Place Order Button */}
+      {/*  Place Order Button */}
       <button
         onClick={handleOrderNow}
         className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold text-lg py-3 rounded-xl transition"
