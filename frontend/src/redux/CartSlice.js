@@ -69,6 +69,7 @@ export const getCartDetails = createAsyncThunk("/cart/getDetails", async () => {
     toast.error("Something went wrong");
   }
 });
+
 export const increaseProductQuantity = createAsyncThunk(
   "cart/increaseProduct", // Remove the leading slash
   async (productId, { rejectWithValue }) => {
