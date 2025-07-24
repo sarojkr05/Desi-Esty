@@ -7,7 +7,7 @@ import adminRouter from "./src/routes/adminRoutes.js";
 import cartRouter from "./src/routes/cartRoutes.js";
 import getAllApprovedProducts from "./src/routes/productRuoutesFromUser.js";
 import productRouter from "./src/routes/productRoutes.js";
-
+import orderRouter from "./src/routes/orderRoutes.js";
 
 import dotenv from "dotenv";
 import cors from 'cors';
@@ -36,6 +36,7 @@ app.use("/admin", adminRouter);
 app.use("/products", productRouter); 
 app.use("/product", getAllApprovedProducts); 
 app.use("/cart",  cartRouter);
+app.use("/orders", orderRouter);
 
 
 

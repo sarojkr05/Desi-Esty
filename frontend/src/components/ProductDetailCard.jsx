@@ -98,6 +98,7 @@ const ProductDetailCard = () => {
         >
           -
         </button>
+        
         <p className="w-8 text-center font-medium">{quantity}</p>
         <button
           onClick={() => setQuantity(quantity + 1)}
@@ -124,7 +125,7 @@ const ProductDetailCard = () => {
           to="/products"
           className="text-sm text-amber-600 font-medium hover:underline"
         >
-          View Similar Products →
+          continue shopping →
         </Link>
       </div>
     </div>

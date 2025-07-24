@@ -1,48 +1,45 @@
-import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
-import { updateUserProfile, fetchCurrentUser } from "../redux/userSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserProfile, updateUserProfile } from "../redux/userSlice";
+
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const { currentUser } = useSelector((state) => state.user);
-
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const loading = useSelector((state) => state.user.loading);
+  const error = useSelector((state) => state.user.error);
+  console.log("Redux user state:", currentUser);
   const [formData, setFormData] = useState({
-    name: currentUser?.name || "",
-    email: currentUser?.email || "",
-    mobileNumber: currentUser?.mobileNumber || "",
-    address: currentUser?.address || "",
-    city: currentUser?.city || "",
-    state: currentUser?.state || "",
-    country: currentUser?.country || "",
+    name: "",
+    email: "",
+    mobileNumber: "",
+    country: "",
+    address: "",
+    city: "",
+    state: "",
   });
 
   useEffect(() => {
-    dispatch(fetchCurrentUser());
+    dispatch(fetchUserProfile());
   }, [dispatch]);
-  console.log("curr user", currentUser);
 
   useEffect(() => {
     if (currentUser) {
-      setFormData((prev) => ({
-        ...prev,
+      setFormData({
         name: currentUser.name || "",
         email: currentUser.email || "",
         mobileNumber: currentUser.mobileNumber || "",
+        country: currentUser.country || "",
         address: currentUser.address || "",
         city: currentUser.city || "",
-        state: currentUser.state || "",
-        country: currentUser.country || "",
-      }));
+        state: currentUser.state || "India",
+      });
     }
   }, [currentUser]);
 
-  if (!currentUser) return <p>Loading user profile...</p>;
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value,
+      [e.target.name]: e.target.value,
     }));
   };
 
@@ -50,106 +47,101 @@ const UserProfile = () => {
     e.preventDefault();
     dispatch(updateUserProfile(formData));
   };
-  return (
-    <>
-      <form onSubmit={handleSubmit}>
-        <div className="   text-amber-500 mt-0  p-4 font-semibold">
-          <Link to="/products" className="flex gap-2">
-            <ArrowLeft size={22} />
-            Continue Shopping
-          </Link>
-        </div>
-        <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg">
-          <div className="flex flex-col items-center mb-6">
-            <img
-              src="https://icons.veryicon.com/png/o/miscellaneous/standard/avatar-15.png"
-              alt="User Avatar"
-              className="w-24 h-24 rounded-full mb-2"
-            />
-            <label className="font-semibold">Full Name</label>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleChange}
-              className="border border-amber-500 px-2 py-1 rounded mt-1 text-center w-1/2 focus:outline-none focus:border-amber-600"
-            />
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="font-semibold block mb-1">Contact No.</label>
-              <input
-                type="text"
-                  name="mobileNumber"
-                value={formData.mobileNumber}
-                onChange={handleChange}
-                className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-              />
-            </div>
-            <div>
-              <label className="font-semibold block mb-1">Email Id</label>
-              <input
-                type="text"
-                  name="email"
-                value={formData.email}
-                onChange={handleChange}
-                readOnly
-                className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-              />
-            </div>
-          </div>
-          <div>
-            <label className="font-semibold block mb-1">Address</label>
-            <input
-              type="text"
-                name="address"
-              value={formData.address}
-              onChange={handleChange}
-              className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-            />
-          </div>
-          <div>
-            <label className="font-semibold block mb-1">City</label>
-            <input
-              type="text"
-              value={formData.city}
-                name="city"
-              onChange={handleChange}
-              className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-              placeholder="Enter City"
-            />
-          </div>
-          <div>
-            <label className="font-semibold block mb-1">State</label>
-            <input
-              type="text"
-              value={formData.state}
-                name="state"
-              onChange={handleChange}
-              className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-              placeholder="Enter State"
-            />
-          </div>
-          <div>
-            <label className="font-semibold block mb-1">Country</label>
-            <input
-              type="text"
-              value={formData.country}
-                name="country"
-              onChange={handleChange}
-              className="border border-amber-500 p-2 rounded w-full focus:outline-none focus:border-amber-600"
-              readOnly
-            />
-          </div>
-          <div>
-            <button className="m-4 right-0 bg-amber-600 text-white font-semibold px-4 py-2 rounded hover:bg-amber-500">
-              Update Profile
-            </button>
-          </div>
+  return (
+    <div className="max-w-md mx-auto p-4 bg-white shadow rounded">
+      <h2 className="text-xl font-semibold mb-4">User Profile</h2>
+      {loading && <p>Loading...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit} className="space-y-3">
+        <div>
+          <label className="block text-sm font-medium">Name</label>
+          <input
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2 bg-gray-100"
+          />
         </div>
+        <div>
+          <label className="block text-sm font-medium">Email</label>
+          <input
+            type="email"
+            name="email"
+            value={formData.email}
+         
+               onChange={handleChange}
+            className="w-full border rounded px-3 py-2 bg-gray-100"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Mobile Number</label>
+          <input
+            type="text"
+            name="mobileNumber"
+            value={formData.mobileNumber}
+               onChange={handleChange}
+            className="w-full border rounded px-3 py-2 bg-gray-100"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Country</label>
+          <input
+            type="text"
+            name="country"
+            value={formData.country}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">Address</label>
+          <input
+            type="text"
+            name="address"
+            value={formData.address}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">City</label>
+          <input
+            type="text"
+            name="city"
+            value={formData.city}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <div>
+          <label className="block text-sm font-medium">State</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.state}
+            onChange={handleChange}
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+         <div>
+          <label className="block text-sm font-medium">Country</label>
+          <input
+            type="text"
+            name="state"
+            value={formData.country}
+            className="w-full border rounded px-3 py-2"
+          />
+        </div>
+        <button
+          type="submit"
+          className="w-full bg-amber-500 text-white py-2 rounded hover:bg-amber-600"
+        >
+          Update Profile
+        </button>
       </form>
-    </>
+    </div>
   );
 };
 

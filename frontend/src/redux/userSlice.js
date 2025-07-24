@@ -10,9 +10,8 @@ export const fetchCurrentUser = createAsyncThunk(
       const res = await axiosInstance.get("/auth/me", {
         withCredentials: true,
       });
-    
+      console.log("Backend /auth/me response:", res.data);
       return res.data;
-      
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch current user"
@@ -20,8 +19,6 @@ export const fetchCurrentUser = createAsyncThunk(
     }
   }
 );
-
-
 
 export const updateUserProfile = createAsyncThunk(
   "user/updateUserProfile",
@@ -34,7 +31,7 @@ export const updateUserProfile = createAsyncThunk(
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true, 
+          withCredentials: true,
         }
       );
       return data.user;
@@ -50,10 +47,11 @@ export const fetchUserProfile = createAsyncThunk(
   "user/fetchUserProfile",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await axiosInstance.get("http://localhost:5000/auth/profile", {
+      const res = await axiosInstance.get("/auth/profile", {
         withCredentials: true,
       });
-      return res.data;
+       console.log("Profile fetched:", res.data); 
+      return res.data; 
     } catch (error) {
       return rejectWithValue(
         error.response?.data?.message || "Failed to fetch profile"
@@ -85,28 +83,30 @@ const userSlice = createSlice({
         state.currentUser = null;
         state.error = action.payload;
       })
+     builder
       .addCase(fetchUserProfile.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(fetchUserProfile.fulfilled, (state, action) => {
-      state.loading = false;
-      state.userProfile = action.payload;
-    })
-    .addCase(fetchUserProfile.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    }) .addCase(updateUserProfile.pending, (state) => {
-      state.loading = true;
-    })
-    .addCase(updateUserProfile.fulfilled, (state, action) => {
-      state.loading = false;
-      state.currentUser = action.payload;
-    })
-    .addCase(updateUserProfile.rejected, (state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
-    ;
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload; 
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(updateUserProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+      })
+      .addCase(updateUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
