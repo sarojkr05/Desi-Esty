@@ -25,7 +25,6 @@ export const registerUser = async ({ name, email, password, mobileNumber, role }
     name: user.name,
     email: user.email,
     role: user.role,
-    
   };
 };
 

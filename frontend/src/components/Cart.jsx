@@ -23,6 +23,7 @@ const Cart = () => {
     }
   }
 
+  
   async function handleRemove(productId) {
     const response = await dispatch(removeProductFromCart(productId));
     if (response?.payload?._id) {

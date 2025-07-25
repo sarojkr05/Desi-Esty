@@ -1,5 +1,5 @@
 import express from "express";
-import { getOrdersByUserId, placeOrder, cancelOrder  } from "../controllers/orderController.js";
+import { getOrdersByUserId, placeOrder, cancelOrder, getAllOrders  } from "../controllers/orderController.js";
 import { protect } from "../middlewares/authMiddlewares.js";
 
 const OrderRouter = express.Router();

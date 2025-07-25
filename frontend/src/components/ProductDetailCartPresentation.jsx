@@ -3,6 +3,9 @@ import { Star } from "lucide-react";
 import { Link } from 'react-router-dom';
 
 const productDetailCartPresentation = ({ image, title, description, price, category, quantity, setQuantity, handleCart, isInCart }) => {
+
+
+  
   return (
     <div className="w-full max-w-4xl mx-auto my-12 bg-white shadow-xl rounded-2xl p-6 sm:p-8 space-y-6">
       <img

@@ -10,7 +10,6 @@ export const fetchCurrentUser = createAsyncThunk(
       const res = await axiosInstance.get("/auth/me", {
         withCredentials: true,
       });
-      console.log("Backend /auth/me response:", res.data);
       return res.data;
     } catch (error) {
       return rejectWithValue(
@@ -87,7 +86,6 @@ const userSlice = createSlice({
     builder
       .addCase(fetchUserProfile.pending, (state) => {
         state.loading = true;
-        state.error = null;
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.loading = false;

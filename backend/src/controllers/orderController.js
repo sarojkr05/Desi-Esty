@@ -1,6 +1,11 @@
-import { placeOrderService, getOrdersByUserIdService ,getAllOrdersService ,cancelOrderService } from "../services/orderServices.js";
+import {
+  placeOrderService,
+  getOrdersByUserIdService,
+  getAllOrdersService,
+  cancelOrderService,
+} from "../services/orderServices.js";
 
-import asyncHandler from "express-async-handler"; 
+import asyncHandler from "express-async-handler";
 
 export const placeOrder = async (req, res) => {
   try {
@@ -9,7 +14,7 @@ export const placeOrder = async (req, res) => {
 
     console.log("Request Body:", req.body);
 
-    const order = await placeOrderService(userId, items, totalAmount, address );
+    const order = await placeOrderService(userId, items, totalAmount, address);
     console.log("Order Placed:", order);
 
     res.status(201).json(order);
@@ -23,19 +28,17 @@ export const getOrdersByUserId = async (req, res) => {
   try {
     const userId = req.user._id;
     const orders = await getOrdersByUserIdService(userId);
-    res.status(200).json(orders);
+    res.status(200).json({ orders });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
 };
 
-
 export const getAllOrders = asyncHandler(async (req, res) => {
   const orders = await getAllOrdersService();
-  console.log(orders,"allorders")
+  console.log(orders, "allorders");
   res.status(200).json(orders);
 });
-
 
 export const cancelOrder = async (req, res) => {
   try {

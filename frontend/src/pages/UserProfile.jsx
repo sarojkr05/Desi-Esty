@@ -4,7 +4,7 @@ import { fetchUserProfile, updateUserProfile } from "../redux/userSlice";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
-  const currentUser = useSelector((state) => state.user.currentUser);
+  const currentUser = useSelector((state) => state.user.userProfile);
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
   console.log("Redux user state:", currentUser);
@@ -28,10 +28,10 @@ const UserProfile = () => {
         name: currentUser.name || "",
         email: currentUser.email || "",
         mobileNumber: currentUser.mobileNumber || "",
-        country: currentUser.country || "",
+        state: currentUser.state || "",
         address: currentUser.address || "",
         city: currentUser.city || "",
-        state: currentUser.state || "India",
+        country: currentUser.country || "India",
       });
     }
   }, [currentUser]);
@@ -70,8 +70,7 @@ const UserProfile = () => {
             type="email"
             name="email"
             value={formData.email}
-         
-               onChange={handleChange}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-gray-100"
           />
         </div>
@@ -81,20 +80,11 @@ const UserProfile = () => {
             type="text"
             name="mobileNumber"
             value={formData.mobileNumber}
-               onChange={handleChange}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2 bg-gray-100"
           />
         </div>
-        <div>
-          <label className="block text-sm font-medium">Country</label>
-          <input
-            type="text"
-            name="country"
-            value={formData.country}
-            onChange={handleChange}
-            className="w-full border rounded px-3 py-2"
-          />
-        </div>
+
         <div>
           <label className="block text-sm font-medium">Address</label>
           <input
@@ -125,12 +115,13 @@ const UserProfile = () => {
             className="w-full border rounded px-3 py-2"
           />
         </div>
-         <div>
+        <div>
           <label className="block text-sm font-medium">Country</label>
           <input
             type="text"
-            name="state"
+            name="country"
             value={formData.country}
+            onChange={handleChange}
             className="w-full border rounded px-3 py-2"
           />
         </div>

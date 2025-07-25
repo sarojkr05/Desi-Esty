@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { closeLoginModal } from "../redux/modalSlice";
 import toast from "react-hot-toast";
 import LoginModalPresentation from "./LoginModalPresentation";
+import { getCartDetails } from "../redux/CartSlice";
 
 const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -91,6 +92,7 @@ const LoginModal = ({ isOpen, onClose, onSwitchToRegister }) => {
         //Close the modal on successful login
 
         dispatch(closeLoginModal());
+        dispatch(getCartDetails()) // Fetch the cart everytime a user logged in
 
         //Navigate accordingly
 
