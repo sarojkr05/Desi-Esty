@@ -14,10 +14,9 @@ const initialState = {
 
 export const placeOrder = createAsyncThunk(
   "order/place",
-  async ({ items, totalAmount, address }, { rejectWithValue }) => {
+  async ({ items, totalAmount, address }, { dispatch, rejectWithValue }) => {
     try {
       const orderPromise = axiosInstance.post(`/orders/place`, {
-        userId,
         items,
         totalAmount,
         address,
