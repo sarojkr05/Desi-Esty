@@ -7,22 +7,23 @@ const OrderPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { orders } = useSelector((state) => state.order);
-  console.log("Orders from Redux:", orders)
 
   useEffect(() => {
     dispatch(getMyOrders());
   }, [dispatch]);
-const latestOrder = Array.isArray(orders) && orders.length > 0 ? orders[orders.length - 1] : null;
+  const latestOrder =
+    Array.isArray(orders) && orders.length > 0
+      ? orders[orders.length - 1]
+      : null;
 
-  console.log(latestOrder, "latestorder");
- const orderDate = latestOrder
-  ? new Date(latestOrder.createdAt).toLocaleString()
-  : new Date().toLocaleString();
+  const orderDate = latestOrder
+    ? new Date(latestOrder.createdAt).toLocaleString()
+    : new Date().toLocaleString();
 
-const totalAmount = latestOrder?.items?.reduce(
-  (sum, item) => sum + item.quantity * item.product.price,
-  0
-);
+  const totalAmount = latestOrder?.items?.reduce(
+    (sum, item) => sum + item.quantity * item.product.price,
+    0
+  );
 
   const handleBackToShop = () => {
     navigate("/products");
@@ -31,7 +32,7 @@ const totalAmount = latestOrder?.items?.reduce(
   return (
     <div className="max-w-3xl mx-auto my-20 p-8 bg-white shadow-2xl rounded-2xl border border-amber-200">
       <div className="text-center">
-        <h1 className="text-4xl font-bold text-amber-700 mb-4">
+        <h1 className="text-4xl font-bold text-amber-600 mb-4">
           🎉 Order Placed Successfully!
         </h1>
         <p className="text-gray-600 text-lg">
@@ -48,7 +49,7 @@ const totalAmount = latestOrder?.items?.reduce(
 
       {latestOrder ? (
         <div>
-          <h2 className="text-xl font-semibold text-amber-800 mb-4 mt-8">
+          <h2 className="text-xl font-semibold text-amber-600 mb-4 mt-8">
             Your Order Summary
           </h2>
 
@@ -71,7 +72,7 @@ const totalAmount = latestOrder?.items?.reduce(
 
             <hr className="my-4" />
 
-            <div className="text-right font-bold text-xl text-amber-800 mt-4">
+            <div className="text-right font-bold text-xl text-amber-600 mt-4">
               Total Paid: ₹{totalAmount?.toFixed(2)}
             </div>
           </div>
@@ -85,7 +86,7 @@ const totalAmount = latestOrder?.items?.reduce(
       <div className="text-center mt-10">
         <button
           onClick={handleBackToShop}
-          className="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-xl font-semibold transition"
+          className="px-6 py-3 bg-amber-500 hover:bg-amber-600 text-white rounded-xl font-semibold transition"
         >
           🛍️ Continue Shopping
         </button>

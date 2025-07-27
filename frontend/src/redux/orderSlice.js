@@ -13,9 +13,11 @@ const initialState = {
 
 export const placeOrder = createAsyncThunk(
   "order/place",
-  async ({ items, totalAmount, address }, { rejectWithValue }) => {
+  async ({ items, totalAmount, address, userId }, { rejectWithValue }) => {
+
     try {
       const orderPromise = axiosInstance.post(`/orders/place`, {
+        userId,
         items,
         totalAmount,
         address,
@@ -40,7 +42,6 @@ export const getMyOrders = createAsyncThunk(
   async (_, thunkAPI) => {
     try {
       const response = await axiosInstance.get("orders/my-orders");
-      console.log("response-orderdata", response.data);
       return response.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);
@@ -55,7 +56,6 @@ export const fetchAllOrders = createAsyncThunk(
       const response = await axiosInstance.get("/admin/allorders", {
         withCredentials: true,
       });
-       console.log("Fetched Orders:", response)
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -73,7 +73,6 @@ const orderSlice = createSlice({
         state.orders.push(action.payload);
       })
       .addCase(getMyOrders.fulfilled, (state, action) => {
-        console.log("Orders payload:", action.payload);
         state.orders = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchAllOrders.pending, (state) => {

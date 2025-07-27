@@ -8,6 +8,7 @@ const ArtisanDashboard = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.userData);
   const { myProducts = [] } = useSelector((state) => state.products);
+  console.log("curr user:", currentUser);
 
   const { name, isApproved } = currentUser || {};
   const isUserApproved = isApproved === true || isApproved === "true";

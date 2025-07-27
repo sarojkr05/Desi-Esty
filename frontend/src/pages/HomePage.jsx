@@ -1,7 +1,5 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import { ShoppingCart, Search, Star } from "lucide-react";
-import Layout from "../layout/Layout";
 import { Typewriter } from "react-simple-typewriter";
 import ClayPotImg from "../assets/images/Clay Pot.jpg";
 import WoolImg from "../assets/images/Wool Imag.jpg";
@@ -46,7 +44,6 @@ const HomePage = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white to-amber-50 text-gray-800">
-      {/* Hero Section */}
       <section className="w-full px-6 py-20 md:px-20 text-center">
         <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight text-amber-600">
           <Typewriter
@@ -74,7 +71,6 @@ const HomePage = () => {
         </Link>
       </section>
 
-      {/* Features */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 md:px-20 py-12">
         <div className="flex flex-col items-center text-center">
           <Star className="w-10 h-10 text-amber-500 mb-3" />
@@ -99,7 +95,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
       <section className="px-6 md:px-20 py-12 bg-white">
         <h2 className="text-3xl font-bold text-center mb-10">
           Featured Products
@@ -125,7 +120,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
       <section className="py-16 bg-amber-100 text-center px-6">
         <h2 className="text-3xl md:text-4xl font-bold mb-4">
           Are you an Artisan?

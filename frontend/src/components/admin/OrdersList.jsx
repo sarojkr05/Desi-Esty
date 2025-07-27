@@ -14,7 +14,7 @@ const OrdersList = () => {
 
   return (
    <div className="p-6">
-  <h2 className="text-2xl font-semibold mb-6 text-gray-800">All Orders</h2>
+  <h2 className="text-2xl font-semibold mb-6 text-amber-700">All Orders</h2>
 
   {adminOrders.length === 0 ? (
     <p className="text-gray-600">No orders found</p>
@@ -38,7 +38,7 @@ const OrdersList = () => {
             <span className="font-medium text-gray-700">Status:</span> {order.status}
           </p>
 
-          <button className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+          <button className="px-4 py-2 bg-amber-500 text-white rounded-md hover:bg-amber-600 transition">
             Confirm
           </button>
         </div>

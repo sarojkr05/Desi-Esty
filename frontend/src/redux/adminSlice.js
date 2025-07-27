@@ -18,7 +18,6 @@ export const getAllUnApprovedArtisans = createAsyncThunk("/admin/getUnApprovedAr
       success: "Unapproved artisans fetched successfully",
     });
     const apiResponse = await response;
-    console.log("res from back", apiResponse)
     return apiResponse.data;
   } catch (error) {
     console.log(error.response);

@@ -7,7 +7,6 @@ const UserProfile = () => {
   const currentUser = useSelector((state) => state.user.userProfile);
   const loading = useSelector((state) => state.user.loading);
   const error = useSelector((state) => state.user.error);
-  console.log("Redux user state:", currentUser);
   const [formData, setFormData] = useState({
     name: "",
     email: "",

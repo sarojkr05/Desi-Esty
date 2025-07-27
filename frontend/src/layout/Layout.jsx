@@ -3,11 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../redux/authSlice";
 import { getCartDetails, selectTotalQuantity } from "../redux/CartSlice";
 
-import {
-  openLoginModal,
-} from "../redux/modalSlice";
+import { openLoginModal } from "../redux/modalSlice";
 import { useEffect, useState } from "react";
 import LayoutPresentation from "./LayoutPresentation";
+import axiosInstance from "../helpers/axiosInstance";
+import { fetchCurrentUser } from "../redux/userSlice";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -34,10 +34,17 @@ const Layout = () => {
   }, [location.pathname]);
 
   useEffect(() => {
-    if(isLoggedIn) {
+    if (isLoggedIn) {
       dispatch(getCartDetails());
     }
-  }, [dispatch, isLoggedIn])
+  }, [dispatch, isLoggedIn]);
+  // fetch current user to see if user is logged in
+  useEffect(() => {
+    axiosInstance
+      .get("/auth/me")
+      .then((res) => dispatch(fetchCurrentUser(res.data)))
+      .catch(() => dispatch(logout()));
+  }, [dispatch]);
 
   const handleLogout = async () => {
     try {
@@ -61,7 +68,7 @@ const Layout = () => {
   };
 
   return (
-    <LayoutPresentation 
+    <LayoutPresentation
       isLoggedIn={isLoggedIn}
       loginModalOpen={loginModalOpen}
       totalQuantity={totalQuantity}
@@ -74,7 +81,7 @@ const Layout = () => {
       setMobileMenuOpen={setMobileMenuOpen}
       mobileMenuOpen={mobileMenuOpen}
     />
-  )
+  );
 };
 
 export default Layout;

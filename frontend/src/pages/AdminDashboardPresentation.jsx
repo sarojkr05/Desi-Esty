@@ -70,4 +70,4 @@ const AdminDashboardPresentation = ({ name, isUserApproved, totalCount, approved
   );
 }
 
-export default AdminDashboardPresentation
+export default AdminDashboardPresentation;

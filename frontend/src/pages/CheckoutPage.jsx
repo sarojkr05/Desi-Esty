@@ -55,6 +55,7 @@ const CheckoutPage = () => {
         toast.error(resultAction.payload || "Failed to update profile.");
       }
     } catch (error) {
+      console.log(error)
       toast.error("Unexpected error during profile update.");
     }
   };
@@ -69,9 +70,10 @@ const CheckoutPage = () => {
       navigate("/user/profile");
       return;
     }
-
+    
     const resultAction = await dispatch(
-      placeOrder({
+    placeOrder({
+    userId: profile.id,
     items: cartItems,
     totalAmount:totalAmount,
     address: profile.address || address, 
@@ -100,13 +102,13 @@ const CheckoutPage = () => {
           </Link>
           <span className="hidden sm:inline">Back</span>
         </div>
-      <h2 className="text-2xl font-bold text-amber-700 mb-6 text-center">
+      <h2 className="text-2xl font-bold text-amber-600 mb-6 text-center">
         Checkout Summary
       </h2>
 
       {/* Products Section */}
       <section className="mb-10">
-        <h3 className="text-xl font-semibold text-amber-800 mb-4">
+        <h3 className="text-xl font-semibold text-amber-600 mb-4">
           Your Products
         </h3>
         {cartItems.length === 0 ? (
@@ -126,7 +128,7 @@ const CheckoutPage = () => {
                     className="w-16 h-16 object-cover rounded border"
                   />
                   <div>
-                    <p className="font-medium text-amber-900">
+                    <p className="font-medium text-amber-700">
                       {product?.title}
                     </p>
                     <p className="text-sm text-gray-600">
@@ -134,7 +136,7 @@ const CheckoutPage = () => {
                     </p>
                   </div>
                 </div>
-                <div className="text-amber-700 font-semibold text-lg">
+                <div className="text-amber-600 font-semibold text-lg">
                   ₹{product?.price * item.quantity}
                 </div>
               </div>
@@ -144,33 +146,33 @@ const CheckoutPage = () => {
         <div className="p-2 m-2 text-amber-500 font-semibold">
           <Link  to='/products' >Shop More</Link>
         </div>
-        <div className="text-right mt-4 text-xl font-bold text-amber-800">
+        <div className="text-right mt-4 text-xl font-bold text-amber-600">
           Total: ₹{totalAmount.toFixed(2)}
         </div>
       </section>
 
       <section className="mb-8">
         <div className="mb-6 p-6 border border-amber-200 rounded-2xl bg-amber-50 shadow-sm">
-          <h3 className="text-xl font-semibold text-amber-800 mb-4">
+          <h3 className="text-xl font-semibold text-amber-600 mb-4">
             📦 Shipping Details
           </h3>
 
           {profile?.name ? (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-700">
               <div className="bg-white rounded-lg p-3 shadow border border-amber-100">
-                <p className="text-amber-700 font-medium">👤 Name</p>
+                <p className="text-amber-600 font-medium">👤 Name</p>
                 <p>{profile.name}</p>
               </div>
               <div className="bg-white rounded-lg p-3 shadow border border-amber-100">
-                <p className="text-amber-700 font-medium">📧 Email</p>
+                <p className="text-amber-600 font-medium">📧 Email</p>
                 <p>{profile.email}</p>
               </div>
               <div className="bg-white rounded-lg p-3 shadow border border-amber-100">
-                <p className="text-amber-700 font-medium">📱 Mobile</p>
+                <p className="text-amber-600 font-medium">📱 Mobile</p>
                 <p>{profile.mobileNumber}</p>
               </div>
               <div className="bg-white rounded-lg p-3 shadow border border-amber-100 md:col-span-2">
-                <p className="text-amber-700 font-medium">🏠 Address</p>
+                <p className="text-amber-600 font-medium">🏠 Address</p>
                 <p>
                   {profile.address}, {profile.city}, {profile.state},{" "}
                   {profile.country}
@@ -251,7 +253,7 @@ const CheckoutPage = () => {
 
       <button
         onClick={handleOrderNow}
-        className="w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold text-lg py-3 rounded-xl transition"
+        className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold text-lg py-3 rounded-xl transition"
       >
         ✅ Place Order
       </button>

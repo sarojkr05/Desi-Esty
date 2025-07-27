@@ -12,8 +12,6 @@ export const placeOrder = async (req, res) => {
     const userId = req.user._id; // Assuming you are using a protected route
     const { items, totalAmount, address } = req.body;
 
-    console.log("Request Body:", req.body);
-
     const order = await placeOrderService(userId, items, totalAmount, address);
     console.log("Order Placed:", order);
 

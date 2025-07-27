@@ -52,13 +52,13 @@ function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/product/:id" element={<ProductDetailsPage />} />
           <Route path="/my-cart" element={<Cart />} />
+          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order-confirmation" element={<OrderPage />} />
         </Route>
 
         {/* Fallback */}
         <Route path="*" element={<NotFoundPage />} />
       </Route>
-      <Route path="/checkout" element={<CheckoutPage />} />
-      <Route path="/order-confirmation" element={<OrderPage />} />
     </Routes>
   );
 }
