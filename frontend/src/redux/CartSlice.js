@@ -113,7 +113,12 @@ export const selectTotalQuantity = (state) => {
 const cartSlice = createSlice({
   name: "cart",
   initialState,
-  reducers: {},
+  reducers: {
+    clearCart: (state) => {
+      state.cartData.items = [];
+      state.cartData.total = 0;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(getCartDetails.fulfilled, (state, action) => {
       state.cartData = action.payload;
@@ -122,3 +127,4 @@ const cartSlice = createSlice({
 });
 
 export default cartSlice.reducer;
+export const {clearCart}=cartSlice.actions;

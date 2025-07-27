@@ -2,6 +2,7 @@
 import mongoose from "mongoose";
 import Order from "../models/orderSchema.js";
 import Product from "../models/productSchema.js";
+import { clearCartItems } from "../repositories/cartRepository.js"
 import { createOrder, getOrdersByUserId ,getAllOrdersFromDB,findOrderById,updateOrderStatus } from "../repositories/orderRepository.js";
 
 
@@ -9,7 +10,6 @@ export const placeOrderService = async (userId, items, _totalFromClient, address
   if (!items?.length) throw new Error("Items array is required");
   if (!address) throw new Error("Address is required");
 
-  // Start a Mongo session → transaction (requires replica‑set or Atlas)
   const session = await mongoose.startSession();
   let newOrder;
   try {
@@ -21,15 +21,15 @@ export const placeOrderService = async (userId, items, _totalFromClient, address
         const product = await Product.findById(item.product).session(session);
         if (!product) throw new Error("Product not found");
 
-        // Stock check
+      
         if (product.quantity < item.quantity) {
           throw new Error(`Insufficient stock for ${product.title}`);
         }
 
-        // Accumulate total
+        
         finalTotal += product.price * item.quantity;
 
-        // Decrement stock
+        
         product.quantity -= item.quantity;
         await product.save({ session });
       }
@@ -41,11 +41,13 @@ export const placeOrderService = async (userId, items, _totalFromClient, address
           items,
           totalAmount: finalTotal,
           address,
-          status: "pending"
+          status: "ordered"
         },
         session
       );
     });
+    console.log("Clearing cart...") 
+    await clearCartItems(userId)
   } finally {
     session.endSession();
   }

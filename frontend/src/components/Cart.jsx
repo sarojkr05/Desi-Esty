@@ -5,6 +5,7 @@ import {
   getCartDetails,
   increaseProductQuantity,
   removeProductFromCart,
+  clearCart
 } from "../redux/CartSlice";
 import CartPresentation from "./CartPresentation";
 import { useNavigate } from "react-router-dom";
@@ -57,6 +58,12 @@ const Cart = () => {
     0
   );
 
+  const handleClearCart = (_id)=>{
+    clearCart();
+    fetchCartDetails();
+
+  }
+
   return (
     <CartPresentation 
       localCartItems={localCartItems}
@@ -66,6 +73,7 @@ const Cart = () => {
       handleRemove={handleRemove}
       total={total}
       handleCheckout={handleCheckout}
+      handleClearCart={handleClearCart}
     />
   )
 };

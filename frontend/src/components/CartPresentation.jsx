@@ -1,7 +1,9 @@
-import { Link, useNavigate } from "react-router-dom";
 
-const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, localCartItems, total }) => {
+import { Link, useNavigate } from "react-router-dom";
+import {Trash} from "lucide-react";
+const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, localCartItems, total ,handleClearCart }) => {
   const navigate = useNavigate()
+ 
   return (
     <div className="max-w-5xl mx-auto mt-12 p-4 sm:p-6 bg-white rounded-2xl shadow-lg">
       <h1 className="text-xl sm:text-3xl font-bold text-amber-600 mb-6 border-b pb-2 text-center sm:text-left">
@@ -14,6 +16,10 @@ const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, loca
         </p>
       ) : (
         <div className="space-y-6 sm:space-y-8">
+           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 items-center sm:items-start border border-amber-100 rounded-xl p-4 sm:p-5 shadow-sm hover:shadow-md transition-all duration-200"
+            >
+              Clear cart <Trash size={24} className="text-amber-500"></Trash>
+            </div>
           {localCartItems.map((item, index) => (
             <div
               key={item.id || index}
@@ -26,7 +32,7 @@ const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, loca
                 className="w-24 h-24 sm:w-28 sm:h-28 object-cover rounded-xl border border-gray-200"
               />
 
-              {/* Product Info */}
+           
               <div className="flex-1 space-y-2 text-center sm:text-left">
                 <h2 className="text-lg sm:text-xl font-semibold text-amber-700">
                   {item.product.title}
@@ -36,7 +42,7 @@ const CartPresentation = ({ handleDecrement, handleIncrement, handleRemove, loca
                   {item.product.description}
                 </p>
 
-                {/* Quantity Controls */}
+         
                 <div className="flex justify-center sm:justify-start gap-3 mt-3 items-center">
                   <button
                     onClick={() => handleDecrement(item.product._id)}
