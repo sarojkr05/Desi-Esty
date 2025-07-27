@@ -4,16 +4,17 @@ import {
   getAllOrdersService,
   cancelOrderService,
 } from "../services/orderServices.js";
-
+import { clearCartItems } from "../repositories/cartRepository.js";
 import asyncHandler from "express-async-handler";
 
 export const placeOrder = async (req, res) => {
   try {
-    const userId = req.user._id; // Assuming you are using a protected route
+    const userId = req.user._id; 
     const { items, totalAmount, address } = req.body;
 
     const order = await placeOrderService(userId, items, totalAmount, address);
     console.log("Order Placed:", order);
+    await clearCartItems(userId);
 
     res.status(201).json(order);
   } catch (error) {

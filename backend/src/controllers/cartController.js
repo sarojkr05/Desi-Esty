@@ -27,6 +27,7 @@ export const modifyProductTocart = async (req, res) => {
 export const clearCartbyId = async (req, res) => {
     try {
         const updatedCart = await clearCart(req.user._id);
+         console.log("Clearing cart for user:", userId);
         res.json({ message: "Cart cleared", cart: updatedCart });
     } catch (error) {
         res.status(400).json({ message: error.message });

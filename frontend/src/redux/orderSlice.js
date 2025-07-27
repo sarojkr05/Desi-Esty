@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axiosInstance from "../helpers/axiosInstance";
 import toast from "react-hot-toast";
+import { getCartDetails } from "./CartSlice";
 
 const initialState = {
   orders: [],
@@ -13,8 +14,7 @@ const initialState = {
 
 export const placeOrder = createAsyncThunk(
   "order/place",
-  async ({ items, totalAmount, address, userId }, { rejectWithValue }) => {
-
+  async ({ items, totalAmount, address }, { rejectWithValue }) => {
     try {
       const orderPromise = axiosInstance.post(`/orders/place`, {
         userId,
@@ -28,6 +28,9 @@ export const placeOrder = createAsyncThunk(
         success: "Order placed successfully!",
         error: "Something went wrong while placing your order.",
       });
+
+      
+      dispatch(getCartDetails());
 
       return response.data;
     } catch (error) {
@@ -56,6 +59,7 @@ export const fetchAllOrders = createAsyncThunk(
       const response = await axiosInstance.get("/admin/allorders", {
         withCredentials: true,
       });
+       console.log("Fetched Orders:", response)
       return response.data;
     } catch (err) {
       return rejectWithValue(err.response?.data?.message || err.message);
@@ -73,6 +77,7 @@ const orderSlice = createSlice({
         state.orders.push(action.payload);
       })
       .addCase(getMyOrders.fulfilled, (state, action) => {
+        console.log("Orders payload:", action.payload);
         state.orders = Array.isArray(action.payload) ? action.payload : [];
       })
       .addCase(fetchAllOrders.pending, (state) => {

@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate ,Link} from "react-router-dom";
 import toast from "react-hot-toast";
-import { fetchUserProfile, updateUserProfile } from "../redux/userSlice";
-import { getCartDetails } from "../redux/CartSlice";
+import { fetchUserProfile, updateUserProfile } from "../redux/userSlice.js";
+import { getCartDetails, clearCart } from "../redux/CartSlice";
 import { placeOrder } from "../redux/orderSlice";
+
 import {CircleChevronLeft} from 'lucide-react';
 
 const CheckoutPage = () => {
@@ -67,7 +68,7 @@ const CheckoutPage = () => {
   const handleOrderNow = async () => {
     if (!profile?.isProfileComplete) {
       toast.error("Complete your profile to place an order.");
-      navigate("/user/profile");
+     
       return;
     }
     
@@ -78,11 +79,17 @@ const CheckoutPage = () => {
     totalAmount:totalAmount,
     address: profile.address || address, 
   }))
-    
+   
     if (placeOrder.fulfilled.match(resultAction)) {
       const orderData = resultAction.payload;
+      console.log("clearing cart...")
+      dispatch(clearCart());
+      
+     
       navigate("/order-confirmation", { state: { order: orderData } });
+       dispatch(getCartDetails());
     }
+
   };
  
 
@@ -200,7 +207,7 @@ const CheckoutPage = () => {
                   type="email"
                   className="input border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-amber-500"
                   placeholder="Email"
-                  value={user?.email || ""}
+                  value={profile.email || ""}
                   disabled
                 />
                 <input
@@ -255,7 +262,7 @@ const CheckoutPage = () => {
         onClick={handleOrderNow}
         className="w-full bg-amber-500 hover:bg-amber-600 text-white font-semibold text-lg py-3 rounded-xl transition"
       >
-        ✅ Place Order
+         Place Order
       </button>
     </div>
   );
